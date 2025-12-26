@@ -1,31 +1,22 @@
-/* Main Container Layout */
 .home-container {
   display: flex;
-  flex-direction: row;
-  min-height: 80vh; /* Occupy significant vertical space */
-  align-items: center; /* Vertical centering */
-  padding: 0 2rem;
-  gap: 2rem;
-  overflow: hidden;
+  padding: 2rem 4rem;
+  flex-grow: 1;
 }
 
-/* Section Widths */
 .latest-projects {
   width: 50%;
   position: relative;
-  height: 600px; /* Fixed height container for absolute positioning context */
-  /* Remove previous grid styles */
-  display: block; 
-  padding: 0;
-  margin: 0;
+  padding: 8rem 6rem 0 4rem;
 }
 
 .home-section {
   width: 50%;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-/* Existing typography styles */
 .home-title {
   font-family: var(--font-heading);
   margin-bottom: 1rem;
@@ -54,63 +45,50 @@
   opacity: 0.9;
 }
 
-/* Project Cards Layout Logic */
 .latest-project-card {
-  /* Set a fixed size for the cards to make the layout predictable */
-  width: 250px; 
-  height: 180px; /* Aspect ratio roughly 4:3 */
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  background-color: #eee;
+  border: 1px solid var(--color-background);
 }
 
-/* 1st Project: Normal Link (We place it centrally or specifically as "The Anchor")
-   User said "link normal", but given 2 and 3 are absolute around it,
-   placing it centrally in the container makes the most sense visually. 
-   Simply "Normal flow" would put it top-left. Let's try to center it 
-   in the container so the "Top" and "Right" absolute ones surround it nicely?
-   Actually, "link normal" implies static. 
-   BUT, if I just leave it static at 0,0, and then put one at Top-Center (50% x) and one at Right-Center (100% x, 50% y),
-   they will be spread out.
-   Let's create a layout where the "Normal" one is somewhat central or substantial.
-*/
+.latest-project-card a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.latest-project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .latest-project-card:nth-child(1) {
   position: relative;
-  /* Let's center this one in the container to act as the main piece */
-  top: 50%;
-  left: 20%; /* Offset slightly left to balance the Right-Center one */
-  transform: translateY(-50%);
-  width: 300px; /* Make the main one slightly larger */
-  height: 220px;
-  z-index: 2;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/* 2nd Project: Absolute Top Center */
 .latest-project-card:nth-child(2) {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
+  right: 30%;
+  z-index: 2;
+  width: 30%;
+  aspect-ratio: 1/1;
 }
 
-/* 3rd Project: Absolute Right Center */
 .latest-project-card:nth-child(3) {
   position: absolute;
-  top: 50%;
+  top: 60%;
   right: 0;
   transform: translateY(-50%);
-  z-index: 1;
+  width: 40%;
+  aspect-ratio: 1/1;
+  z-index: 2;
 }
 
 .latest-project-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.latest-project-image:hover {
-  transform: scale(1.05);
 }
