@@ -1,22 +1,25 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/images/JADE.svg";
-import "./Header.css";
+import "../styles/Header.css";
 
 export default function Header() {
   return (
     <header>
       <div className="logo">
-        <img src={logo} alt="Logo JADE" />
+        <Link to="/">
+          <img src={logo} alt="Logo JADE" />
+        </Link>
       </div>
       <nav>
         <ul>
           <li>
-            <a href="/">Accueil</a>
+            <Link to="/">Accueil</Link>
           </li>
           <li>
-            <a href="/projets">Projets</a>
+            <Link to="/projets">Projets</Link>
           </li>
           <li>
-            <a href="/contact">Contact</a>
+            <Link to="/contact">Contact</Link>
           </li>
         </ul>
       </nav>

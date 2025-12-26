@@ -37,3 +37,23 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
 }
+
+body::selection {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
