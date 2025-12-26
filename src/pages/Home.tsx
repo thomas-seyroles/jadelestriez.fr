@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { client, urlFor } from "../sanityClient";
 import type { Project } from "../types";
 import "../styles/Home.css";
+import texture_1 from "../assets/images/texture_1.jpg";
+import texture_2 from "../assets/images/texture_2.jpg";
+import texture_3 from "../assets/images/texture_3.jpg";
+import texture_4 from "../assets/images/texture_4.jpg";
 
 export default function Home() {
   const [latestProject, setLatestProject] = useState<Project | null>(null);
@@ -64,6 +68,10 @@ export default function Home() {
               ))}
           </>
         )}
+      </div>
+      <div className="textures">
+        <img id="texture1" src={texture_2} alt="" />
+        <img id="texture2" src={texture_2} alt="" />
       </div>
       <section className="home-section">
         <h1 className="home-title">Étudiante en communication</h1>
