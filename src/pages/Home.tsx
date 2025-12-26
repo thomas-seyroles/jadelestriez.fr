@@ -80,8 +80,11 @@ export default function Home() {
           drops topping cake muffin chees
         </p>
         <div className="home-link-container">
-          <Link to="/projets" className="home-link">
-            Voir mes projets
+          <Link to="/contact" className="home-link">
+            Contactez-moi
+          </Link>
+          <Link to="/projets" className="home-btn">
+            Mes projets
           </Link>
         </div>
       </section>

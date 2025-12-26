@@ -36,20 +36,30 @@
 
 .home-link-container {
   margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .home-link {
+  color: var(--color-foreground);
+  border-bottom: 2px solid var(--gray-400);
+  padding-bottom: .1rem;
+  transition: opacity 0.3s ease;
+  opacity: .75;
+}
+
+.home-btn {
   display: inline-block;
   padding: 10px 20px;
   background-color: var(--color-primary);
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
-  transition: opacity 0.3s ease;
 }
 
 .home-link:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .latest-project-card {
