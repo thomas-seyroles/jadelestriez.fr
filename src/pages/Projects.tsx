@@ -11,7 +11,7 @@ export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
 
   useEffect(() => {
-    const query = `*[_type == "projet"]{
+    const query = `*[_type == "projet"] | order(_createdAt desc){
       _id,
       miniature,
       titre,

@@ -24,7 +24,8 @@
   text-transform: uppercase;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 20px;
+  outline: none;
+  border: none;
   font-family: var(--font-body);
   transition: color 0.3s ease;
 }
