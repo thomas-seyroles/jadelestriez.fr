@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 import { client, urlFor } from "../sanityClient";
 import type { Project } from "../types";
 import "../styles/Home.css";
@@ -72,8 +73,41 @@ export default function Home() {
         )}
       </div>
       <div className="textures">
-        <img id="texture1" src={texture_2} alt="" />
-        <img id="texture2" src={texture_2} alt="" />
+        <motion.img
+          id="texture1"
+          src={texture_2}
+          alt=""
+          className="texture-image"
+          animate={{
+            x: [0, 8, -5, 0],
+            y: [0, -6, 4, 0],
+            filter: ["blur(2px)", "blur(3.5px)", "blur(2.5px)", "blur(2px)"],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.img
+          id="texture2"
+          src={texture_2}
+          alt=""
+          className="texture-image"
+          animate={{
+            x: [0, -7, 6, 0],
+            y: [0, 5, -4, 0],
+            filter: ["blur(2px)", "blur(3px)", "blur(2.8px)", "blur(2px)"],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
       </div>
       <section className="home-section">
         <h1 className="home-title">Étudiante en communication</h1>

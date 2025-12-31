@@ -3,6 +3,7 @@
   padding: 2rem 4rem;
   flex-grow: 1;
   height: 80dvh;
+  overflow: hidden;
   position: relative;
 }
 
@@ -133,11 +134,15 @@
   height: 100%;
 }
 
-.textures img {
+.textures img,
+.textures .texture-image {
   width: 150px;
   height: 250px;
   object-fit: cover;
   filter: blur(2px);
   opacity: .75;
+  will-change: transform, filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
