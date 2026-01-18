@@ -10,6 +10,8 @@ import {
   FaMapMarkerAlt,
   FaPhone
 } from "react-icons/fa";
+import Button from "../components/ui/Button";
+import ColorCard from "../components/design/ColorCard";
 import "../styles/Design.css"; // We will create this locally for this page's layout
 
 export default function Design() {
@@ -46,45 +48,21 @@ export default function Design() {
         <h3 className="color-subtitle">Marque</h3>
         <div className="color-grid">
           {brandColors.map((color) => (
-            <div key={color.name} className="color-card">
-              <div
-                className="color-preview"
-                style={{ backgroundColor: color.value }}
-              ></div>
-              <div className="color-info">
-                <code>{color.name}</code>
-              </div>
-            </div>
+            <ColorCard key={color.name} color={color.value} label={color.name} />
           ))}
         </div>
 
         <h3 className="color-subtitle">Contraste</h3>
         <div className="color-grid">
           {contrastColors.map((color) => (
-            <div key={color.name} className="color-card">
-              <div
-                className="color-preview"
-                style={{ backgroundColor: color.value, border: color.name === '--color-background' ? '1px solid var(--gray-200)' : 'none' }}
-              ></div>
-              <div className="color-info">
-                <code>{color.name}</code>
-              </div>
-            </div>
+            <ColorCard key={color.name} color={color.value} label={color.name} />
           ))}
         </div>
 
         <h3 className="color-subtitle">Nuances de Gris</h3>
         <div className="color-grid">
           {grayColors.map((color) => (
-            <div key={color.name} className="color-card">
-              <div
-                className="color-preview"
-                style={{ backgroundColor: color.value }}
-              ></div>
-              <div className="color-info">
-                <code>{color.name}</code>
-              </div>
-            </div>
+            <ColorCard key={color.name} color={color.value} label={color.name} />
           ))}
         </div>
       </section>
@@ -123,18 +101,23 @@ export default function Design() {
       {/* UI Elements / Buttons */}
       <section className="design-section">
         <h2>Éléments UI</h2>
-        <div className="ui-grid">
+        <div className="ui-container">
           <div className="ui-group">
-            <h3>Boutons (Standard HTML)</h3>
+            <h3>Boutons</h3>
             <div className="component-row">
-              <button>Bouton Simple</button>
-              <button disabled>Désactivé</button>
+              <Button variant="primary">Primaire</Button>
+              <Button variant="secondary">Secondaire</Button>
+              <Button variant="accent">Accent</Button>
+              <Button variant="border">Bordure Foreground</Button>
+              <Button variant="border-primary">Bordure Primaire</Button>
+              <Button variant="foreground">Foreground</Button>
+              <Button variant="background">Background</Button>
             </div>
           </div>
           
-          <div className="ui-group">
+          <div className="ui-group" style={{ marginTop: '3rem' }}>
             <h3>Liens de Navigation</h3>
-            <nav style={{ display: 'flex', gap: '1rem' }}>
+            <nav className="component-row">
                 <a href="#" style={{ textDecoration: 'none', textTransform: 'uppercase', color: 'var(--color-foreground)' }}>Lien Normal</a>
                 <a href="#" style={{ textDecoration: 'none', textTransform: 'uppercase', color: 'var(--color-primary)' }}>Lien Hover</a>
             </nav>
@@ -163,3 +146,4 @@ export default function Design() {
     </div>
   );
 }
+

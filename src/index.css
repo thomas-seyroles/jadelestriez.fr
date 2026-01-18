@@ -71,6 +71,8 @@ body::selection {
 
 a {
   text-decoration: none;
+  color: inherit;
+  outline: none;
 }
 
 ul {
@@ -81,5 +83,14 @@ button {
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: transparent;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+button:focus, button:active, a:focus, a:active {
+  outline: none;
+  box-shadow: none;
 }

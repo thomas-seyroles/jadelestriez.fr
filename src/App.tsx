@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -14,6 +15,16 @@ function AppContent() {
 
   return (
     <>
+      <Toaster 
+        position="bottom-center" 
+        toastOptions={{
+          style: {
+            borderRadius: '0',
+            border: '1px solid var(--gray-200)',
+            fontFamily: 'var(--font-body)',
+          },
+        }}
+      />
       {!isProjectDetail && <Header />}
       <main className={`content ${isProjectDetail ? "no-header-footer" : ""}`}>
         <Routes>
