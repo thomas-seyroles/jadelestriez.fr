@@ -46,7 +46,7 @@
   color: var(--color-foreground);
   border-bottom: 2px solid var(--gray-400);
   padding-bottom: .1rem;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
   opacity: .75;
 }
 

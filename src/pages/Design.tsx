@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Button from "../components/ui/Button";
 import ColorCard from "../components/design/ColorCard";
+import Link from "../components/ui/Link";
 import "../styles/Design.css"; // We will create this locally for this page's layout
 
 export default function Design() {
@@ -118,8 +119,7 @@ export default function Design() {
           <div className="ui-group" style={{ marginTop: '3rem' }}>
             <h3>Liens de Navigation</h3>
             <nav className="component-row">
-                <a href="#" style={{ textDecoration: 'none', textTransform: 'uppercase', color: 'var(--color-foreground)' }}>Lien Normal</a>
-                <a href="#" style={{ textDecoration: 'none', textTransform: 'uppercase', color: 'var(--color-primary)' }}>Lien Hover</a>
+                <Link href="#" style={{ textTransform: 'uppercase' }}>Lien Standard</Link>
             </nav>
           </div>
         </div>

@@ -27,7 +27,7 @@
   outline: none;
   border: none;
   font-family: var(--font-body);
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .filter-button:hover {
