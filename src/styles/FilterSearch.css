@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .search-input-container {
@@ -20,13 +20,12 @@
   align-items: center;
   justify-content: center;
   color: var(--color-foreground);
-  padding: 0.5rem;
   pointer-events: none;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.5rem 2rem 0.5rem 2.5rem; /* Left padding for icon, Right for close btn */
+  padding: 0.5rem 2rem 0.5rem 2rem; /* Left padding for icon, Right for close btn */
   border: none;
   border-radius: 0;
   background-color: transparent;

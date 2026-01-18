@@ -1,14 +1,13 @@
 .projects-order {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .order-button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
   color: var(--gray-400); /* Inactive color */
   display: flex;
   align-items: center;
