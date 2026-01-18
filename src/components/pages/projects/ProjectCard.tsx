@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 import { urlFor } from "../../../sanityClient";
 import type { Project } from "../../../types";
 
@@ -10,7 +11,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   if (!project.miniature) return null;
 
   return (
-    <div className="project-card">
+    <motion.div
+      className="project-card"
+      whileHover={{ opacity: 0.5, scale: 1.02 }}
+      transition={{ duration: 0.2 }}
+    >
       <Link
         to={`/projets/${project.slug}`}
         style={{ display: "block", height: "100%" }}
@@ -22,6 +27,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           loading="lazy"
         />
       </Link>
-    </div>
+    </motion.div>
   );
 }
