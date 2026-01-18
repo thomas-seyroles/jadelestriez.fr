@@ -2,6 +2,7 @@ import type { SanityImageSource } from "./sanityClient";
 
 export interface Project {
   _id: string;
+  _createdAt?: string;
   layout: string;
   miniature: SanityImageSource;
   titre: string;

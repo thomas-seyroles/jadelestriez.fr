@@ -15,12 +15,27 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
+  const [order, setOrder] = useState<"desc" | "asc">("desc");
   const { isExiting, handleExitComplete } = usePageExitAnimation();
+
+  // Debounce search term update
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 800);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
   // Fetch projects once on mount
   useEffect(() => {
     const query = `*[_type == "projet"] | order(_createdAt desc){
       _id,
+      _createdAt,
       miniature,
       titre,
       "slug": slug.current,
@@ -45,10 +60,29 @@ export default function Projects() {
   // Optimize filtering performance using useMemo
   // This prevents re-calculating the list on every render if projects/category hasn't changed
   const filteredProjects = useMemo(() => {
-    return selectedCategory === "Tous"
-      ? projects
-      : projects.filter((p) => p.categorie?.nom === selectedCategory);
-  }, [projects, selectedCategory]);
+    let filtered = projects;
+
+    // Filter by category
+    if (selectedCategory !== "Tous") {
+      filtered = filtered.filter((p) => p.categorie?.nom === selectedCategory);
+    }
+
+    // Filter by search term
+    if (debouncedSearchTerm.trim() !== "") {
+      filtered = filtered.filter((p) =>
+        p.titre?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+      );
+    }
+
+    // Sort projects
+    filtered = filtered.sort((a, b) => {
+      const dateA = new Date(a._createdAt || 0).getTime();
+      const dateB = new Date(b._createdAt || 0).getTime();
+      return order === "desc" ? dateB - dateA : dateA - dateB;
+    });
+
+    return filtered;
+  }, [projects, selectedCategory, debouncedSearchTerm, order]);
 
   const containerVariants = {
     hidden: { opacity: 1 },
@@ -114,6 +148,9 @@ export default function Projects() {
           <ProjectFilters
             selectedCategory={selectedCategory}
             onFilterChange={setSelectedCategory}
+            onSearchChange={setSearchTerm}
+            order={order}
+            onOrderChange={setOrder}
           />
         </motion.header>
 
@@ -124,7 +161,7 @@ export default function Projects() {
           animate={isExiting ? "exit" : "visible"}
           onAnimationComplete={handleExitComplete}
           // Key change forces re-animation when category changes or data loads
-          key={`${selectedCategory}-${projects.length}-${isLoading}`}
+          key={`${selectedCategory}-${projects.length}-${isLoading}-${debouncedSearchTerm}-${order}`}
         >
           {isLoading
             ? // Show 8 skeletons while loading
