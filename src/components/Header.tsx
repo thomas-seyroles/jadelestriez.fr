@@ -4,7 +4,7 @@ import "../styles/Header.css";
 
 export default function Header() {
   return (
-    <header>
+    <header className="header">
       <div className="logo">
         <Link href="/">
           <img src={logo} alt="Logo JADE" />
@@ -13,13 +13,19 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link href="/" className="nav-link">Accueil</Link>
+            <Link href="/" className="nav-link">
+              Accueil
+            </Link>
           </li>
           <li>
-            <Link href="/projets" className="nav-link">Projets</Link>
+            <Link href="/projets" className="nav-link">
+              Projets
+            </Link>
           </li>
           <li>
-            <Link href="/contact" className="nav-link">Contact</Link>
+            <Link href="/contact" className="nav-link">
+              Contact
+            </Link>
           </li>
         </ul>
       </nav>

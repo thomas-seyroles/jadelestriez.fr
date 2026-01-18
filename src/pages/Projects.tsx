@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
-import { client, urlFor } from "../sanityClient";
+import { useEffect, useState, useMemo } from "react";
+import { client } from "../sanityClient";
 import SEO from "../components/SEO";
-import type { Categorie, Project } from "../types";
+import type { Project } from "../types";
 import "../styles/Projects.css";
 import projets from "../assets/images/PROJETS.svg";
 import Footer from "../components/Footer";
-import FilterLink from "../components/ui/FilterLink";
+import ProjectFilters from "../components/pages/projects/ProjectFilters";
+import ProjectCard from "../components/pages/projects/ProjectCard";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
 
+  // Fetch projects once on mount
   useEffect(() => {
     const query = `*[_type == "projet"] | order(_createdAt desc){
       _id,
       miniature,
       titre,
+      "slug": slug.current,
       categorie->{
         nom,
         "slug": slug.current
@@ -28,10 +31,13 @@ export default function Projects() {
       .catch(console.error);
   }, []);
 
-  const filteredProjects =
-    selectedCategory === "Tous"
+  // Optimize filtering performance using useMemo
+  // This prevents re-calculating the list on every render if projects/category hasn't changed
+  const filteredProjects = useMemo(() => {
+    return selectedCategory === "Tous"
       ? projects
       : projects.filter((p) => p.categorie?.nom === selectedCategory);
+  }, [projects, selectedCategory]);
 
   return (
     <>
@@ -40,73 +46,25 @@ export default function Projects() {
           title="Mes Projets"
           description="Découvrez les projets de Jade, incluant graphisme, communication et design web. Une galerie variée démontrant mes compétences."
         />
-        <h1 className="projects-title">
-          <img src={projets} alt="Projets" />
-        </h1>
-        <ProjectFilters
-          selectedCategory={selectedCategory}
-          onFilterChange={setSelectedCategory}
-        />
+        
+        <header className="projects-header">
+          <h1 className="projects-title">
+            <img src={projets} alt="Projets" />
+          </h1>
+          
+          <ProjectFilters
+            selectedCategory={selectedCategory}
+            onFilterChange={setSelectedCategory}
+          />
+        </header>
+
         <div className="projects-grid">
           {filteredProjects.map((project) => (
-            <div key={project._id} className="project-card">
-              {project.miniature && (
-                <img
-                  src={urlFor(project.miniature).width(600).height(400).url()}
-                  alt={project.titre || ""}
-                  className="project-image"
-                />
-              )}
-            </div>
+            <ProjectCard key={project._id} project={project} />
           ))}
         </div>
       </section>
       <Footer />
     </>
-  );
-}
-
-interface ProjectFiltersProps {
-  selectedCategory: string;
-  onFilterChange: (category: string) => void;
-}
-
-function ProjectFilters({
-  selectedCategory,
-  onFilterChange,
-}: ProjectFiltersProps) {
-  const [filters, setFilters] = useState<Categorie[]>([]);
-
-  useEffect(() => {
-    const query = `*[_type == "categorie"]{
-      _id,
-      nom,
-      slug
-    }`;
-
-    client
-      .fetch(query)
-      .then((data) => setFilters(data))
-      .catch(console.error);
-  }, []);
-
-  return (
-    <div className="filters">
-      <FilterLink
-        isActive={selectedCategory === "Tous"}
-        onClick={() => onFilterChange("Tous")}
-      >
-        Tous
-      </FilterLink>
-      {filters.map((filter) => (
-        <FilterLink
-          key={filter._id}
-          isActive={selectedCategory === filter.nom}
-          onClick={() => onFilterChange(filter.nom)}
-        >
-          {filter.nom}
-        </FilterLink>
-      ))}
-    </div>
   );
 }
