@@ -6,9 +6,10 @@ This document provides instructions and guidelines for AI agents and developers 
 
 - **Stack**: React 19, TypeScript, Vite 7
 - **Styling**: Vanilla CSS, `framer-motion` for animations, `react-icons`
-- **Routing**: `react-router-dom` v7
+- **Routing**: `react-router-dom` v7 (Data Router pattern)
 - **Data**: Sanity CMS (`@sanity/client`)
 - **Package Manager**: `pnpm`
+- **Design Philosophy**: "Sharp" aesthetic (strictly `border-radius: 0` everywhere), minimalist, premium feel.
 
 ## 2. Environment & Commands
 
@@ -26,7 +27,7 @@ pnpm run dev
 The server usually runs on `http://localhost:5173`.
 
 ### Building
-Build for production:
+Build for production (CRITICAL STEP):
 ```bash
 pnpm run build
 ```
@@ -50,18 +51,30 @@ Proposed commands:
 
 ## 3. Directory Structure
 
-- **`src/components/`**: Reusable UI components (e.g., `Header.tsx`, `Footer.tsx`).
-- **`src/pages/`**: Full page components mapped to routes (e.g., `Home.tsx`, `Projects.tsx`).
-- **`src/styles/`**: Global or shared stylesheets.
-- **`src/assets/`**: Static assets like images and fonts.
-- **`src/sanityClient.ts`**: Sanity CMS configuration and client.
+- **`src/components/`**:
+  - **`ui/`**: Core design system components (Button, Link, Input, skeletons/). **Use these preferentially.**
+  - **`pages/`**: Page-specific sub-components (e.g., `projects/ProjectCard.tsx`).
+  - **`layout/`**: Layout components like `Header.tsx`, `Footer.tsx`.
+- **`src/pages/`**: Full page components (e.g., `Home.tsx`, `Projects.tsx`).
+- **`src/hooks/`**: Custom hooks (e.g., `usePageExitAnimation.ts`).
+- **`src/styles/`**: Global stylesheets and component-specific styles.
+- **`src/assets/`**: Static assets (images, fonts).
+- **`src/sanityClient.ts`**: Sanity CMS configuration.
 - **`src/types.ts`**: Shared TypeScript definitions.
 
 ## 4. Code Style & Conventions
 
-### 4.1. TypeScript
-- **Strictness**: Enable and maintain strict type checking.
-- **Types vs Interfaces**: Use `interface` for object shapes that might be extended, `type` for unions/intersections.
+### 4.1. Design & UI (CRITICAL)
+- **Border Radius**: MUST be `0` or `none` for ALL elements. No rounded corners.
+- **Components**: Use reusable UI components from `src/components/ui/` instead of raw HTML elements where possible:
+  - `<Button>` instead of `<button>`
+  - `<Link>` (custom) instead of `<a href...>` or `<Link to...>`
+  - `<Input>` / `<Textarea>` for forms
+- **Toasts**: Use `sonner` for notifications.
+- **Animations**: Use `motion` (from `motion/react`) for transitions. Standard transition duration is `0.2s`.
+
+### 4.2. TypeScript
+- **Strictness**: Maintain strict type checking.
 - **Props**: Define component props interfaces explicitly.
   ```tsx
   interface HeaderProps {
@@ -69,71 +82,44 @@ Proposed commands:
     isActive?: boolean;
   }
   ```
-- **Avoid `any`**: Use `unknown` if the type is truly not known, but prefer specific types.
+- **Avoid `any`**: Use `unknown` if needed, but prefer specific types.
 
-### 4.2. React Components
+### 4.3. React Components
 - **Functional Components**: Use functional components with hooks.
-- **Naming**: PascalCase for files and component names (e.g., `ProjectDetail.tsx`).
-- **Exports**:
-  - Page components: `export default` (common for lazy loading/routes).
-  - Utility components: Named exports are acceptable, but consistent `export default` is seen in `App.tsx`. Follow local patterns.
-- **Hooks**:
-  - Use built-in hooks (`useState`, `useEffect`, `useMemo`).
-  - Create custom hooks in `src/hooks/` (if needed) for complex logic.
-  - Follow rules of hooks (top level only, dependency arrays).
-
-### 4.3. Styling
-- **Method**: Standard CSS imports.
-- **Files**: Co-locate CSS with components if specific, or use `src/styles` for shared.
-- **ClassName**: Use `className` prop. Template literals for conditional classes:
-  ```tsx
-  <div className={`content ${isActive ? "active" : ""}`} />
-  ```
-- **Animation**: Use `framer-motion` for complex component transitions.
+- **Naming**: PascalCase for components (`ProjectCard.tsx`), camelCase for hooks (`useScroll.ts`).
+- **Routing**: Use `useBlocker`, `useNavigate`, and `Outlet` patterns compatible with `react-router-dom` v7 data routers.
+- **Skeleton Loading**: Use `src/components/ui/skeletons/` components for loading states.
 
 ### 4.4. Imports
 - **Order**:
-  1. External libraries (`react`, `react-router-dom`)
-  2. Internal components (`../components/Header`)
-  3. Pages (`../pages/Home`)
-  4. Styles (`./App.css`)
-  5. Types/Assets
-- **Paths**: Currently using relative paths (e.g., `../../components`). Use relative paths unless path aliases (e.g., `@/`) are configured in `tsconfig` and `vite.config`.
+  1. External libraries (`react`, `motion/react`)
+  2. Internal Utilities/Hooks (`../sanityClient`, `../hooks/`)
+  3. UI Components (`../components/ui/`)
+  4. Feature Components (`../components/pages/`)
+  5. Styles (`./Page.css`)
+  6. Assets/Types
+- **Paths**: Use relative paths (e.g., `../../components`).
 
-### 4.5. Naming Conventions
-- **Files**:
-  - Components/Pages: `PascalCase.tsx`
-  - Utilities/Hooks: `camelCase.ts`
-  - Styles: `PascalCase.css` or `kebab-case.css` (match component).
-- **Variables**: `camelCase`.
-- **Constants**: `UPPER_SNAKE_CASE` for true constants.
-- **Boolean props**: Prefix with `is`, `has`, or `should` (e.g., `isLoading`, `hasError`).
-
-### 4.6. Error Handling
-- **API Calls**: Wrap async calls (like Sanity fetches) in `try/catch` blocks.
-- **UI**: Handle loading and error states in components.
-  ```tsx
-  if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} />;
-  ```
-- **Sanity**: Handle potential `null` or missing fields from CMS data gracefully.
+### 4.5. Error Handling
+- **API Calls**: Wrap Sanity fetches in `try/catch`.
+- **Loading States**: Explicitly handle `isLoading` states (use Skeletons).
 
 ## 5. Workflow & Git
 
 - **Commits**: Use conventional commits (e.g., `feat: add project page`, `fix: header overlap`).
-- **Changes**:
-  - Always verify that the app builds (`pnpm build`) before finishing a task.
-  - Lint the code (`pnpm lint`) to catch trivial errors.
-  - Check for unused imports and variables.
+- **Validation**:
+  - **ALWAYS** run `pnpm build` before confirming a task is done.
+  - Run `pnpm lint` to catch potential hooks/refs errors.
 
 ## 6. Agent Instructions
 
 When modifying this codebase:
-1. **Read Context**: Always read the file you are modifying AND its imports to understand the dependencies.
-2. **Match Style**: If editing a file, follow the existing indentation (2 spaces usually) and coding style.
-3. **No Breaking Changes**: Do not change existing public interfaces or route paths unless explicitly requested.
-4. **Dependencies**: Do not add new npm packages without checking if an existing one can solve the problem (e.g., use `react-icons` for icons).
-5. **Sanity**: If modifying data fetching, ensure the GROQ queries in `sanityClient.ts` or components match the Sanity schema.
+1. **Read Context**: Read the file AND its imports.
+2. **Match Style**: Follow existing indentation (2 spaces) and the "Sharp" design aesthetic.
+3. **No Breaking Changes**: Do not change route paths or public interfaces unless requested.
+4. **Dependencies**: Check `package.json` before importing. Do not add new libs unnecessarily.
+5. **Sanity**: Ensure GROQ queries match the Sanity schema.
+6. **Safety**: When implementing navigation blocking or complex effects, use `startTransition` if needed to avoid React warnings.
 
 ---
-*Generated by AI Assistant for Jade Portfolio*
+*Updated for Jade Portfolio Frontend*

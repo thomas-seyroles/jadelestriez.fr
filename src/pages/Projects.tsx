@@ -8,10 +8,14 @@ import projets from "../assets/images/PROJETS.svg";
 import Footer from "../components/Footer";
 import ProjectFilters from "../components/pages/projects/ProjectFilters";
 import ProjectCard from "../components/pages/projects/ProjectCard";
+import ProjectCardSkeleton from "../components/ui/skeletons/ProjectCardSkeleton";
+import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
+  const { isExiting, handleExitComplete } = usePageExitAnimation();
 
   // Fetch projects once on mount
   useEffect(() => {
@@ -28,8 +32,14 @@ export default function Projects() {
 
     client
       .fetch(query)
-      .then((data) => setProjects(data))
-      .catch(console.error);
+      .then((data) => {
+        setProjects(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
 
   // Optimize filtering performance using useMemo
@@ -48,16 +58,39 @@ export default function Projects() {
         staggerChildren: 0.1,
       },
     },
+    exit: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1, // Reverse stagger order
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" as const },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.3, ease: "easeIn" as const },
+    },
   };
 
   const headerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" as const } },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" as const },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.3, ease: "easeIn" as const },
+    },
   };
 
   return (
@@ -67,36 +100,44 @@ export default function Projects() {
           title="Mes Projets"
           description="Découvrez les projets de Jade, incluant graphisme, communication et design web. Une galerie variée démontrant mes compétences."
         />
-        
-        <motion.header 
+
+        <motion.header
           className="projects-header"
           initial="hidden"
-          animate="visible"
+          animate={isExiting ? "exit" : "visible"}
           variants={headerVariants}
         >
           <h1 className="projects-title">
             <img src={projets} alt="Projets" />
           </h1>
-          
+
           <ProjectFilters
             selectedCategory={selectedCategory}
             onFilterChange={setSelectedCategory}
           />
         </motion.header>
 
-        <motion.div 
+        <motion.div
           className="projects-grid"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isExiting ? "exit" : "visible"}
+          onAnimationComplete={handleExitComplete}
           // Key change forces re-animation when category changes or data loads
-          key={`${selectedCategory}-${projects.length}`}
+          key={`${selectedCategory}-${projects.length}-${isLoading}`}
         >
-          {filteredProjects.map((project) => (
-            <motion.div key={project._id} variants={itemVariants}>
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
+          {isLoading
+            ? // Show 8 skeletons while loading
+              Array.from({ length: 6 }).map((_, index) => (
+                <motion.div key={`skeleton-${index}`} variants={itemVariants}>
+                  <ProjectCardSkeleton />
+                </motion.div>
+              ))
+            : filteredProjects.map((project) => (
+                <motion.div key={project._id} variants={itemVariants}>
+                  <ProjectCard project={project} />
+                </motion.div>
+              ))}
         </motion.div>
       </section>
       <Footer />
