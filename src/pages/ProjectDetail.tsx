@@ -133,7 +133,7 @@ export default function ProjectDetail() {
             <div className="project-main-image-section">
               {projectData.image_principale && (
                 <img
-                  src={urlFor(projectData.image_principale).width(1200).url()}
+                  src={urlFor(projectData.image_principale).width(1200).height(600).format("webp").quality(90).url()}
                   alt={projectData.titre || ""}
                   className="project-main-image"
                 />
@@ -148,7 +148,7 @@ export default function ProjectDetail() {
                   {projectData.galerie[0] && (
                     <div className="gallery-item">
                       <img
-                        src={urlFor(projectData.galerie[0].image).format("webp").width(1400).height(600).quality(90).url()}
+                        src={urlFor(projectData.galerie[0].image).format("webp").width(800).quality(80).url()}
                         alt={projectData.galerie[0].label || ""}
                         className="gallery-image"
                       />

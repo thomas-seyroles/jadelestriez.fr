@@ -13,7 +13,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <motion.div
       className="project-card"
-      whileHover={{ opacity: 0.5, scale: 1.02 }}
+      whileHover={{ opacity: 0.5, scale: 1.01 }}
       transition={{ duration: 0.2 }}
     >
       <Link

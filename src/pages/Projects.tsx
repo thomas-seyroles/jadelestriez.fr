@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { client } from "../sanityClient";
+import { motion } from "motion/react";
 import SEO from "../components/SEO";
 import type { Project } from "../types";
 import "../styles/Projects.css";
@@ -39,6 +40,26 @@ export default function Projects() {
       : projects.filter((p) => p.categorie?.nom === selectedCategory);
   }, [projects, selectedCategory]);
 
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" as const } },
+  };
+
   return (
     <>
       <section className="projects-section">
@@ -47,7 +68,12 @@ export default function Projects() {
           description="Découvrez les projets de Jade, incluant graphisme, communication et design web. Une galerie variée démontrant mes compétences."
         />
         
-        <header className="projects-header">
+        <motion.header 
+          className="projects-header"
+          initial="hidden"
+          animate="visible"
+          variants={headerVariants}
+        >
           <h1 className="projects-title">
             <img src={projets} alt="Projets" />
           </h1>
@@ -56,13 +82,22 @@ export default function Projects() {
             selectedCategory={selectedCategory}
             onFilterChange={setSelectedCategory}
           />
-        </header>
+        </motion.header>
 
-        <div className="projects-grid">
+        <motion.div 
+          className="projects-grid"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          // Key change forces re-animation when category changes or data loads
+          key={`${selectedCategory}-${projects.length}`}
+        >
           {filteredProjects.map((project) => (
-            <ProjectCard key={project._id} project={project} />
+            <motion.div key={project._id} variants={itemVariants}>
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
       <Footer />
     </>
