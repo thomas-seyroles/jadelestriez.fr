@@ -5,25 +5,25 @@ import { useLocation } from "react-router-dom";
 interface PageExitContextType {
   isExiting: boolean;
   setIsExiting: (value: boolean) => void;
-  shouldHeaderExit: boolean;
-  setShouldHeaderExit: (value: boolean) => void;
+  shouldLayoutExit: boolean;
+  setShouldLayoutExit: (value: boolean) => void;
 }
 
 const PageExitContext = createContext<PageExitContextType | undefined>(undefined);
 
 export function PageExitProvider({ children }: { children: ReactNode }) {
   const [isExiting, setIsExiting] = useState(false);
-  const [shouldHeaderExit, setShouldHeaderExit] = useState(false);
+  const [shouldLayoutExit, setShouldLayoutExit] = useState(false);
   const location = useLocation();
 
   // Réinitialiser l'état isExiting à chaque changement de route effectif
   useEffect(() => {
     setIsExiting(false);
-    setShouldHeaderExit(false);
+    setShouldLayoutExit(false);
   }, [location.pathname]);
 
   return (
-    <PageExitContext.Provider value={{ isExiting, setIsExiting, shouldHeaderExit, setShouldHeaderExit }}>
+    <PageExitContext.Provider value={{ isExiting, setIsExiting, shouldLayoutExit, setShouldLayoutExit }}>
       {children}
     </PageExitContext.Provider>
   );

@@ -5,8 +5,9 @@ This document provides instructions and guidelines for AI agents and developers 
 ## 1. Project Overview
 
 - **Stack**: React 19, TypeScript, Vite 7
-- **Styling**: Vanilla CSS, `framer-motion` for animations, `react-icons`
+- **Styling**: Vanilla CSS (BEM-like), `framer-motion` for animations, `react-icons`
 - **Routing**: `react-router-dom` v7 (Data Router pattern via `createBrowserRouter`)
+- **Backend**: Cloudflare Pages Functions (`functions/`) for API endpoints
 - **Data**: Sanity CMS (`@sanity/client`)
 - **Package Manager**: `pnpm`
 - **Design Philosophy**: "Sharp" aesthetic (strictly `border-radius: 0` everywhere), minimalist, premium feel.
@@ -24,7 +25,8 @@ Start the development server:
 ```bash
 pnpm run dev
 ```
-The server usually runs on `http://localhost:5173`.
+- Frontend: `http://localhost:5173`
+- Cloudflare Functions (local): Requires `wrangler pages dev` (see `CLOUDFLARE_FUNCTIONS.md`)
 
 ### Building
 Build for production (CRITICAL STEP):
@@ -44,23 +46,23 @@ The project uses ESLint 9 with `typescript-eslint` and React hooks/refresh plugi
 ### Testing
 *Note: No testing framework is currently configured.*
 
-If adding tests in the future, the recommended stack is **Vitest** + **React Testing Library**.
-Proposed commands:
+If adding tests in the future (recommended: **Vitest** + **React Testing Library**), use standard commands:
 - Run all tests: `pnpm test`
 - Run single test: `pnpm test path/to/file.test.tsx`
 
 ## 3. Directory Structure
 
+- **`functions/`**: Cloudflare Pages Functions
+  - **`api/`**: API endpoints (e.g., `send-email.ts`)
+  - **`types.d.ts`**: Cloudflare environment types
+- **`src/context/`**: Global state providers (e.g., `PageExitContext.tsx`)
 - **`src/components/`**:
-  - **`ui/`**: Core primitives (Button, Link, Input, skeletons/). **Use these preferentially.**
+  - **`ui/`**: Core primitives (Button, Link, Input). **Use these preferentially.**
   - **`pages/`**: Page-specific sub-components.
-    - **`home/`**: `HomeHero`, `HomeTextures`, `HomeLatestProjects`.
-    - **`projects/`**: `ProjectCard`, `ProjectFilters`, `FilterSearch`, `ProjectsOrder`.
-    - **`contact/`**: `ContactForm`, `ContactHeader`, `ContactSocials`.
-  - **`layout/`**: Layout components like `Header.tsx`, `Footer.tsx`.
+  - **`layout/`**: Layout components like `Header.tsx` (persistent), `Footer.tsx`.
 - **`src/pages/`**: Full page components mapped to routes (`Home.tsx`, `Projects.tsx`, `Contact.tsx`).
 - **`src/hooks/`**: Custom hooks (e.g., `usePageExitAnimation.ts`).
-- **`src/styles/`**: Global (`App.css`, `index.css`) and component-specific stylesheets (`ProjectCard.css`).
+- **`src/styles/`**: Global (`App.css`) and component stylesheets (`ProjectCard.css`).
 - **`src/sanityClient.ts`**: Sanity CMS configuration.
 - **`src/types.ts`**: Shared TypeScript definitions.
 
@@ -68,36 +70,37 @@ Proposed commands:
 
 ### 4.1. Design & UI (CRITICAL)
 - **Border Radius**: MUST be `0` or `none` for ALL elements. No rounded corners.
-- **Components**: Use reusable UI components from `src/components/ui/` instead of raw HTML elements where possible.
-- **Styling**: Prefer centralized CSS files in `src/styles/` over inline styles or co-located CSS modules. Use BEM-like naming or simple class names.
+- **Components**: Use reusable UI components from `src/components/ui/` instead of raw HTML elements.
+- **Styling**: Prefer centralized CSS files in `src/styles/` or co-located CSS files. Avoid inline styles.
 - **Animations**:
   - Use `motion` (from `motion/react`) for transitions.
-  - Standard transition duration is `0.2s` for micro-interactions, `0.5s` for page transitions.
-  - Use `usePageExitAnimation` hook for page exit transitions.
-  - Use `staggerChildren` for lists/grids.
+  - Standard durations: `0.2s` (micro), `0.5s` (page/layout).
+  - Use `AnimatePresence` for exit animations.
+  - Sync page/header transitions via `PageExitContext`.
 
 ### 4.2. TypeScript
 - **Strictness**: Maintain strict type checking.
 - **Props**: Define component props interfaces explicitly.
   ```tsx
-  interface HeaderProps {
-    title: string;
-    isActive?: boolean;
+  interface ProjectCardProps {
+    project: Project;
+    isVisible?: boolean;
   }
   ```
 - **Avoid `any`**: Use `unknown` if needed, but prefer specific types.
 
 ### 4.3. React Components
 - **Naming**: PascalCase for components (`ProjectCard.tsx`), camelCase for hooks (`useScroll.ts`).
-- **Routing**: Use `useBlocker`, `useNavigate`, and `Outlet` patterns compatible with `react-router-dom` v7 data routers.
+- **Routing**: Use `useNavigate`, `useLocation`, and `Outlet` patterns.
+- **Context**: Use Context for global UI states (like page transitions) rather than prop drilling.
 - **State Management**:
-  - Use controlled inputs for forms/search.
-  - Use debouncing (e.g., `useEffect` with `setTimeout`) for search inputs to prevent excessive re-renders/fetches.
+  - Use controlled inputs for forms.
+  - Use `useEffect` sparingly; prefer event handlers or derived state.
 
 ### 4.4. Imports
 - **Order**:
-  1. External libraries (`react`, `motion/react`)
-  2. Internal Utilities/Hooks (`../sanityClient`, `../hooks/`)
+  1. External libraries (`react`, `motion/react`, `react-router-dom`)
+  2. Internal Context/Hooks (`../context/`, `../hooks/`)
   3. UI Components (`../components/ui/`)
   4. Feature Components (`../components/pages/`)
   5. Styles (`../../styles/ProjectCard.css`)
@@ -105,9 +108,10 @@ Proposed commands:
 - **Paths**: Use relative paths (e.g., `../../components`).
 
 ### 4.5. Error Handling
-- **API Calls**: Wrap Sanity fetches in `try/catch`.
-- **Loading States**: Explicitly handle `isLoading` states (use Skeletons).
-- **Sanity Data**: Always handle potential `null` or missing fields. Ensure `_createdAt` is fetched if sorting is required.
+- **API Calls**: Wrap async calls (Sanity, Cloudflare API) in `try/catch`.
+- **User Feedback**: Use `sonner` (`toast`) for user-facing success/error messages.
+- **Logging**: Log detailed errors to `console.error` for debugging, but show simple friendly messages to users.
+- **Validation**: Validate form data both client-side and server-side (in Functions).
 
 ## 5. Workflow & Git
 
@@ -115,16 +119,20 @@ Proposed commands:
 - **Validation**:
   - **ALWAYS** run `pnpm build` before confirming a task is done.
   - Run `pnpm lint` to catch potential hooks/refs errors.
+- **Environment**:
+  - Frontend vars in `.env` (prefixed `VITE_`).
+  - Backend vars in Cloudflare Dashboard or `.dev.vars` (local).
+  - **NEVER** commit secrets.
 
 ## 6. Agent Instructions
 
 When modifying this codebase:
-1. **Read Context**: Read the file AND its imports.
+1. **Read Context**: Read the file AND its imports/related context (e.g., `PageExitContext` for navigation).
 2. **Match Style**: Follow existing indentation (2 spaces) and the "Sharp" design aesthetic.
 3. **No Breaking Changes**: Do not change route paths or public interfaces unless requested.
 4. **Dependencies**: Check `package.json` before importing. Do not add new libs unnecessarily.
-5. **Sanity**: Ensure GROQ queries match the Sanity schema and include necessary fields (like `_createdAt` for sorting).
-6. **Safety**: When implementing navigation blocking or complex effects, use `startTransition` if needed to avoid React warnings.
+5. **Sanity**: Ensure GROQ queries match the schema and include necessary fields (e.g., `_createdAt` for sorting).
+6. **Safety**: When implementing navigation blocking, use `startTransition` to avoid React warnings.
 
 ---
-*Updated for Jade Portfolio Frontend*
+*Updated for Jade Portfolio Frontend - Jan 2026*

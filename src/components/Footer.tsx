@@ -1,10 +1,20 @@
+import { motion } from "motion/react";
 import Link from "./ui/Link";
 import SocialIcon from "./ui/SocialIcon";
 import "../styles/Footer.css";
+import { usePageExitContext } from "../context/PageExitContext";
 
 export default function Footer() {
+  const { shouldLayoutExit } = usePageExitContext();
+
   return (
-    <footer className="footer">
+    <motion.footer
+      className="footer"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: shouldLayoutExit ? 0 : 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <ul className="footer-links">
         <li>
           <Link href="/">Accueil</Link>
@@ -29,6 +39,6 @@ export default function Footer() {
           size={32}
         />
       </div>
-    </footer>
+    </motion.footer>
   );
 }

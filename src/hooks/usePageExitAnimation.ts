@@ -7,7 +7,7 @@ import { usePageExitContext } from "../context/PageExitContext";
  * Uses PageExitContext to synchronize animation across components (like Header)
  */
 export function usePageExitAnimation() {
-  const { isExiting, setIsExiting, setShouldHeaderExit } = usePageExitContext();
+  const { isExiting, setIsExiting, setShouldLayoutExit } = usePageExitContext();
   const navigate = useNavigate();
   const nextLocationRef = useRef<string | null>(null);
 
@@ -27,7 +27,7 @@ export function usePageExitAnimation() {
       // If so, the header should animate out
       const isProjectDetail = nextPath.startsWith('/projets/') && nextPath !== '/projets';
       if (isProjectDetail) {
-        setShouldHeaderExit(true);
+        setShouldLayoutExit(true);
       }
 
       // Use startTransition to avoid cascading render warning
@@ -35,7 +35,7 @@ export function usePageExitAnimation() {
         setIsExiting(true);
       });
     }
-  }, [blocker.state, blocker.location?.pathname, setIsExiting, setShouldHeaderExit]);
+  }, [blocker.state, blocker.location?.pathname, setIsExiting, setShouldLayoutExit]);
 
   // Reset blocker when component unmounts
   useEffect(() => {
