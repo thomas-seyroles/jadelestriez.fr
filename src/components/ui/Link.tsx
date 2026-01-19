@@ -29,11 +29,8 @@ export default function Link({
         href={href}
         className={`link ${className}`}
         whileHover={{ opacity: 0.6 }}
-        whileTap={{ scale: 0.95, opacity: 1 }}
-        transition={{ 
-          duration: 0.2,
-          scale: { duration: 0.1 }
-        }}
+        whileTap={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
         target="_blank"
         rel="noopener noreferrer"
         {...(props as HTMLMotionProps<"a">)}
@@ -48,11 +45,8 @@ export default function Link({
       to={href}
       className={`link ${className}`}
       whileHover={{ opacity: 0.6 }}
-      whileTap={{ scale: 0.95, opacity: 1 }}
-      transition={{ 
-        duration: 0.2,
-        scale: { duration: 0.1 }
-      }}
+      whileTap={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
       {...(props as HTMLMotionProps<"a">)}
     >
       {children}

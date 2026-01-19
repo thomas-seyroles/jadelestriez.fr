@@ -1,14 +1,15 @@
 # Jade Portfolio - Frontend Agent Guidelines
 
-This document provides instructions and guidelines for AI agents and developers working on the Jade Portfolio frontend repository.
+This document provides comprehensive instructions and guidelines for AI agents and developers working on the Jade Portfolio frontend repository.
 
 ## 1. Project Overview
 
 - **Stack**: React 19, TypeScript, Vite 7
-- **Styling**: Vanilla CSS (BEM-like), `framer-motion` for animations, `react-icons`
+- **Styling**: Vanilla CSS (BEM-like), `motion` (v12) for animations, `react-icons`
 - **Routing**: `react-router-dom` v7 (Data Router pattern via `createBrowserRouter`)
 - **Backend**: Cloudflare Pages Functions (`functions/`) for API endpoints
 - **Data**: Sanity CMS (`@sanity/client`)
+- **UI Feedback**: `sonner` for toast notifications
 - **Package Manager**: `pnpm`
 - **Design Philosophy**: "Sharp" aesthetic (strictly `border-radius: 0` everywhere), minimalist, premium feel.
 
@@ -26,7 +27,7 @@ Start the development server:
 pnpm run dev
 ```
 - Frontend: `http://localhost:5173`
-- Cloudflare Functions (local): Requires `wrangler pages dev` (see `CLOUDFLARE_FUNCTIONS.md`)
+- Cloudflare Functions (local): Requires `wrangler pages dev` (see `CLOUDFLARE_FUNCTIONS.md` if available)
 
 ### Building
 Build for production (CRITICAL STEP):
@@ -42,13 +43,25 @@ Run ESLint:
 pnpm run lint
 ```
 The project uses ESLint 9 with `typescript-eslint` and React hooks/refresh plugins.
+*Note: Fix all lint errors before committing.*
 
 ### Testing
-*Note: No testing framework is currently configured.*
+*Current Status: No testing framework is currently configured.*
 
-If adding tests in the future (recommended: **Vitest** + **React Testing Library**), use standard commands:
-- Run all tests: `pnpm test`
-- Run single test: `pnpm test path/to/file.test.tsx`
+If instructed to add tests, use **Vitest** + **React Testing Library**.
+Recommended commands for agents if tests are added:
+- **Run all tests**:
+  ```bash
+  pnpm test
+  ```
+- **Run a single test file**:
+  ```bash
+  pnpm test path/to/file.test.tsx
+  ```
+- **Run tests in UI mode**:
+  ```bash
+  pnpm test --ui
+  ```
 
 ## 3. Directory Structure
 
@@ -73,8 +86,8 @@ If adding tests in the future (recommended: **Vitest** + **React Testing Library
 - **Components**: Use reusable UI components from `src/components/ui/` instead of raw HTML elements.
 - **Styling**: Prefer centralized CSS files in `src/styles/` or co-located CSS files. Avoid inline styles.
 - **Animations**:
-  - Use `motion` (from `motion/react`) for transitions.
-  - Standard durations: `0.2s` (micro), `0.5s` (page/layout).
+  - Import from `motion/react` (NOT `framer-motion` directly unless necessary).
+  - Standard durations: `0.2s` (micro-interactions), `0.5s` (page/layout transitions).
   - Use `AnimatePresence` for exit animations.
   - Sync page/header transitions via `PageExitContext`.
 
@@ -96,6 +109,7 @@ If adding tests in the future (recommended: **Vitest** + **React Testing Library
 - **State Management**:
   - Use controlled inputs for forms.
   - Use `useEffect` sparingly; prefer event handlers or derived state.
+  - Avoid setting state during render or inside effects without proper guards.
 
 ### 4.4. Imports
 - **Order**:
@@ -109,13 +123,17 @@ If adding tests in the future (recommended: **Vitest** + **React Testing Library
 
 ### 4.5. Error Handling
 - **API Calls**: Wrap async calls (Sanity, Cloudflare API) in `try/catch`.
-- **User Feedback**: Use `sonner` (`toast`) for user-facing success/error messages.
+- **User Feedback**: Use `sonner` (`toast.success`, `toast.error`) for notifications.
 - **Logging**: Log detailed errors to `console.error` for debugging, but show simple friendly messages to users.
 - **Validation**: Validate form data both client-side and server-side (in Functions).
 
 ## 5. Workflow & Git
 
-- **Commits**: Use conventional commits (e.g., `feat: add project page`, `fix: header overlap`, `style: update filter layout`).
+- **Commits**: Use conventional commits.
+  - `feat: ...` for new features
+  - `fix: ...` for bug fixes
+  - `style: ...` for formatting/UI changes (no logic change)
+  - `refactor: ...` for code restructuring
 - **Validation**:
   - **ALWAYS** run `pnpm build` before confirming a task is done.
   - Run `pnpm lint` to catch potential hooks/refs errors.
