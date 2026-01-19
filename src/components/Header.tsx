@@ -1,10 +1,16 @@
+import { motion } from "motion/react";
 import Link from "./ui/Link";
 import logo from "../assets/images/JADE.svg";
 import "../styles/Header.css";
 
 export default function Header() {
   return (
-    <header className="header">
+    <motion.header 
+      className="header"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="logo">
         <Link href="/">
           <img src={logo} alt="Logo JADE" />
@@ -29,6 +35,6 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-    </header>
+    </motion.header>
   );
 }
