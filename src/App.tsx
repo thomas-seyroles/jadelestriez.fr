@@ -3,13 +3,14 @@ import { AnimatePresence } from "motion/react";
 import { Toaster } from "sonner";
 import Header from "./components/Header";
 import "./App.css";
+import { PageExitProvider } from "./context/PageExitContext";
 
 function App() {
   const location = useLocation();
   const isProjectDetail = location.pathname.startsWith("/projets/") && location.pathname !== "/projets";
 
   return (
-    <>
+    <PageExitProvider>
       <Toaster 
         position="bottom-center" 
         toastOptions={{
@@ -26,7 +27,7 @@ function App() {
       <main className={`content ${isProjectDetail ? "no-header-footer" : ""}`}>
         <Outlet />
       </main>
-    </>
+    </PageExitProvider>
   );
 }
 

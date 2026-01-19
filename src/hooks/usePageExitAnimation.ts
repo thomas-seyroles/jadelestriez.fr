@@ -1,31 +1,13 @@
-import { useEffect, useState, useRef, startTransition } from "react";
+import { useEffect, useRef, startTransition } from "react";
 import { useBlocker, useNavigate } from "react-router-dom";
+import { usePageExitContext } from "../context/PageExitContext";
 
 /**
  * Hook to manage page exit animations with navigation blocking
- * 
- * @returns {Object} - Object containing isExiting state and handleExitComplete callback
- * @returns {boolean} isExiting - Whether the page is currently exiting
- * @returns {() => void} handleExitComplete - Callback to call when exit animation completes
- * 
- * @example
- * ```tsx
- * function MyPage() {
- *   const { isExiting, handleExitComplete } = usePageExitAnimation();
- *   
- *   return (
- *     <motion.div
- *       animate={isExiting ? "exit" : "visible"}
- *       onAnimationComplete={handleExitComplete}
- *     >
- *       Content
- *     </motion.div>
- *   );
- * }
- * ```
+ * Uses PageExitContext to synchronize animation across components (like Header)
  */
 export function usePageExitAnimation() {
-  const [isExiting, setIsExiting] = useState(false);
+  const { isExiting, setIsExiting, setShouldHeaderExit } = usePageExitContext();
   const navigate = useNavigate();
   const nextLocationRef = useRef<string | null>(null);
 
@@ -38,13 +20,22 @@ export function usePageExitAnimation() {
   // Handle blocked navigation
   useEffect(() => {
     if (blocker.state === "blocked") {
-      nextLocationRef.current = blocker.location.pathname;
+      const nextPath = blocker.location.pathname;
+      nextLocationRef.current = nextPath;
+      
+      // Check if we are navigating to a project detail page
+      // If so, the header should animate out
+      const isProjectDetail = nextPath.startsWith('/projets/') && nextPath !== '/projets';
+      if (isProjectDetail) {
+        setShouldHeaderExit(true);
+      }
+
       // Use startTransition to avoid cascading render warning
       startTransition(() => {
         setIsExiting(true);
       });
     }
-  }, [blocker.state, blocker.location?.pathname]);
+  }, [blocker.state, blocker.location?.pathname, setIsExiting, setShouldHeaderExit]);
 
   // Reset blocker when component unmounts
   useEffect(() => {
