@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { AnimatePresence } from "motion/react";
 import { Toaster } from "sonner";
 import Header from "./components/Header";
 import "./App.css";
@@ -19,7 +20,9 @@ function App() {
           },
         }}
       />
-      {!isProjectDetail && <Header />}
+      <AnimatePresence>
+        {!isProjectDetail && <Header />}
+      </AnimatePresence>
       <main className={`content ${isProjectDetail ? "no-header-footer" : ""}`}>
         <Outlet />
       </main>
