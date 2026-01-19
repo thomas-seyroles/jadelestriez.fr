@@ -14,8 +14,7 @@ export default function Home() {
       opacity: 1,
       transition: { 
         duration: 0.5,
-        when: "beforeChildren",
-        staggerChildren: 0.2
+        staggerChildren: 0.1
       }
     },
     exit: { 
