@@ -16,7 +16,11 @@ export default function Header() {
       transition={{ duration: 0.5 }}
     >
       <div className="logo">
-        <Link href="/">
+        <Link 
+          href="/"
+          whileHover={{ opacity: 0.6 }}
+          whileTap={{ opacity: 1, scale: 0.95 }}
+        >
           <img src={logo} alt="Logo JADE" />
         </Link>
       </div>
