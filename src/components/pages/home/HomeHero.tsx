@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 
@@ -16,7 +17,7 @@ export default function HomeHero() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
