@@ -22,8 +22,9 @@ export default function MainImage({ project }: MainImageProps) {
           src={urlFor(project.mainImage)
             .width(1920)
             .height(800)
-            .quality(100)
+            .quality(90)
             .format("webp")
+            .fit("max")
             .url()}
           alt={project.titre || ""}
           className="project-main-image"
