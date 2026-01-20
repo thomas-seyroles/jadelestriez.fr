@@ -1,7 +1,7 @@
 import { motion, type Variants } from "motion/react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa6";
-import type { Project } from "../../../../types";
+import type { Project } from "../../../types";
 
 interface NavigationProps {
   project: Project;

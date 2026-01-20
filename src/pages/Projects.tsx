@@ -73,7 +73,7 @@ export default function Projects() {
     const query = `*[_type == "projet"] | order(_createdAt desc){
       _id,
       _createdAt,
-      mainImage,
+      thumbnail,
       titre,
       "slug": slug.current,
       categorie->{

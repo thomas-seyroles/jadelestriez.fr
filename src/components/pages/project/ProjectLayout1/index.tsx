@@ -1,4 +1,4 @@
-import Navigation from "./Navigation";
+import Navigation from "../Navigation";
 import Header from "./Header";
 import MainImage from "./MainImage";
 import type { Project } from "../../../../types";

@@ -13,6 +13,7 @@ export interface Project {
     nom: string;
     slug: string;
   };
+  thumbnail: SanityImageSource;
   mainImage: SanityImageSource;
 }
 

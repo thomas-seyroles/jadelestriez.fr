@@ -6,6 +6,7 @@ import SEO from "../components/SEO";
 import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
 import type { Project } from "../types";
 import ProjectLayout1 from "../components/pages/project/ProjectLayout1/index";
+import ProjectLayout2 from "../components/pages/project/ProjectLayout2/index";
 import "../styles/pages/ProjectDetail.css";
 
 export default function ProjectDetail() {
@@ -63,8 +64,16 @@ export default function ProjectDetail() {
     },
   };
 
-  // Determine layout - default to layout_1 if not specified or unknown
-  // In the future, this can switch on projectData.layout
+  const renderLayout = () => {
+    switch (projectData.layout) {
+      case "layout_2":
+        return <ProjectLayout2 project={projectData} />;
+      case "layout_1":
+      default:
+        return <ProjectLayout1 project={projectData} />;
+    }
+  };
+
   return (
     <motion.div
       initial="hidden"
@@ -76,7 +85,7 @@ export default function ProjectDetail() {
         title={projectData.titre || "Projet"}
         description={projectData.short_description || "Détails du projet"}
       />
-      <ProjectLayout1 project={projectData} />
+      {renderLayout()}
     </motion.div>
   );
 }

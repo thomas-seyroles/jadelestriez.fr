@@ -9,7 +9,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  if (!project.mainImage) return null;
+  if (!project.thumbnail) return null;
 
   return (
     <motion.div
@@ -20,7 +20,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     >
       <Link to={`/projets/${project.slug}`}>
         <motion.img
-          src={urlFor(project.mainImage)
+          src={urlFor(project.thumbnail)
             .width(600)
             .height(400)
             .format("webp")
