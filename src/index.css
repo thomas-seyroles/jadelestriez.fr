@@ -15,6 +15,13 @@
   /* Fonts */
   --font-body: "Lunasima", sans-serif;
   --font-heading: "Allegra", sans-serif;
+
+  /* Typography Scale */
+  --font-size-base: 1rem;
+  --font-ratio: 1.4;
+  --font-size-h3: calc(var(--font-size-base) * var(--font-ratio));
+  --font-size-h2: calc(var(--font-size-h3) * var(--font-ratio));
+  --font-size-h1: calc(var(--font-size-h2) * var(--font-ratio));
 }
 
 @font-face {
@@ -32,10 +39,22 @@
   box-sizing: border-box;
 }
 
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+
 body {
   font-family: var(--font-body);
+  font-size: var(--font-size-base);
   background-color: var(--color-background);
   color: var(--color-foreground);
+  line-height: 1.6;
 }
 
 body::selection {
@@ -52,6 +71,8 @@ body::selection {
 
 a {
   text-decoration: none;
+  color: inherit;
+  outline: none;
 }
 
 ul {
@@ -62,5 +83,14 @@ button {
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: transparent;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+button:focus, button:active, a:focus, a:active {
+  outline: none;
+  box-shadow: none;
 }

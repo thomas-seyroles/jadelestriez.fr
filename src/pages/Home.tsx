@@ -1,98 +1,43 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { client, urlFor } from "../sanityClient";
-import type { Project } from "../types";
-import "../styles/Home.css";
-import texture_2 from "../assets/images/texture_2.jpg";
+import { motion } from "motion/react";
+import "../styles/pages/Home.css";
 import SEO from "../components/SEO";
+import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
+import HomeTextures from "../components/pages/home/HomeTextures";
+import HomeHero from "../components/pages/home/HomeHero";
 
 export default function Home() {
-  const [latestProject, setLatestProject] = useState<Project | null>(null);
+  const { isExiting, handleExitComplete } = usePageExitAnimation();
 
-  useEffect(() => {
-    const query = `*[_type == "projet"] | order(_createdAt desc)[0] {
-      _id,
-      miniature,
-      titre,
-      "slug": slug.current,
-      galerie
-    }`;
-
-    client
-      .fetch(query)
-      .then((data) => setLatestProject(data))
-      .catch(console.error);
-  }, []);
-
-  const hasGallery =
-    latestProject?.galerie && latestProject.galerie.length >= 2;
-  const paddingStyle = hasGallery
-    ? { padding: "8rem 6rem 0 4rem" }
-    : { padding: 0 };
+  const pageVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        duration: 0.5,
+        staggerChildren: 0.1
+      }
+    },
+    exit: { 
+      opacity: 0,
+      transition: { duration: 0.5, ease: "easeInOut" as const }
+    }
+  };
 
   return (
-    <div className="home-container">
+    <motion.div 
+      className="home-container"
+      initial="hidden"
+      animate={isExiting ? "exit" : "visible"}
+      variants={pageVariants}
+      onAnimationComplete={handleExitComplete}
+    >
       <SEO
         title="Accueil"
         description="Portfolio de Jade, étudiante en communication spécialisée dans le design et la création digitale. Découvrez mes projets et mon univers."
       />
-      <div className="latest-projects" style={paddingStyle}>
-        {latestProject && (
-          <>
-            <div className="latest-project-card">
-              {latestProject.miniature && (
-                <Link to={`/projets/${latestProject.slug}`}>
-                  <img
-                    src={urlFor(latestProject.miniature)
-                      .width(850)
-                      .height(1000)
-                      .format("webp")
-                      .quality(80)
-                      .url()}
-                    alt={latestProject.titre || ""}
-                    className="latest-project-image"
-                  />
-                  <h2>{latestProject.titre}</h2>
-                </Link>
-              )}
-            </div>
-            {hasGallery &&
-              latestProject.galerie!.slice(0, 2).map((item, index) => (
-                <div key={item._key || index} className="latest-project-card">
-                  <Link to={`/projets/${latestProject.slug}`}>
-                    <img
-                      src={urlFor(item.image).width(400).url()}
-                      alt=""
-                      className="latest-project-image"
-                    />
-                  </Link>
-                </div>
-              ))}
-          </>
-        )}
-      </div>
-      <div className="textures">
-        <img id="texture1" src={texture_2} alt="" />
-        <img id="texture2" src={texture_2} alt="" />
-      </div>
-      <section className="home-section">
-        <h1 className="home-title">Étudiante en communication</h1>
-        <p className="home-description">
-          Candy icing sugar plum marshmallow sweet candy canes marzipan muffin
-          pastry. Cake apple pie tiramisu gummi bears tootsie roll macaroon
-          pudding chocolate. Tootsie roll gingerbread jelly beans marshmallow
-          gummies ice cream cotton candy biscuit. Jujubes tart sweet roll lemon
-          drops topping cake muffin chees
-        </p>
-        <div className="home-link-container">
-          <Link to="/contact" className="home-link">
-            Contactez-moi
-          </Link>
-          <Link to="/projets" className="home-btn">
-            Mes projets
-          </Link>
-        </div>
-      </section>
-    </div>
+      
+      <HomeTextures />
+      <HomeHero />
+    </motion.div>
   );
 }

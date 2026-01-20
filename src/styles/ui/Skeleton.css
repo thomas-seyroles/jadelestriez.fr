@@ -1,0 +1,27 @@
+/* Skeleton Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-100) 25%,
+    var(--gray-200) 37%,
+    var(--gray-100) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  width: 100%;
+}
+
+.project-card-skeleton {
+  width: 100%;
+  aspect-ratio: 3/2; /* Matches the 600x400 ratio in ProjectCard */
+  background-color: var(--gray-100);
+}

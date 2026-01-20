@@ -3,6 +3,7 @@
   padding: 2rem 4rem;
   flex-grow: 1;
   height: 80dvh;
+  overflow: hidden;
   position: relative;
 }
 
@@ -12,12 +13,12 @@
 }
 
 .home-section {
-  width: 50%;
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  margin-right: 4rem;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .home-title {
@@ -45,7 +46,7 @@
   color: var(--color-foreground);
   border-bottom: 2px solid var(--gray-400);
   padding-bottom: .1rem;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
   opacity: .75;
 }
 
@@ -133,11 +134,15 @@
   height: 100%;
 }
 
-.textures img {
+.textures img,
+.textures .texture-image {
   width: 150px;
   height: 250px;
   object-fit: cover;
   filter: blur(2px);
   opacity: .75;
+  will-change: transform, filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 

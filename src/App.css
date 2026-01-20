@@ -3,3 +3,8 @@ main.content {
     display: flex;
     flex-direction: column;
 }
+
+main.content.no-header-footer {
+    height: 100vh;
+    overflow: hidden;
+}

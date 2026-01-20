@@ -1,0 +1,15 @@
+/* Link Styles */
+.link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+  font-family: var(--font-body);
+  transition: color 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.link:hover {
+  color: var(--color-primary);
+}

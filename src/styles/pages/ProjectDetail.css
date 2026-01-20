@@ -1,0 +1,43 @@
+.project-detail-loading,
+.project-detail-error {
+  padding: 2rem;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  color: var(--color-foreground);
+}
+
+/* Navigation & Elements flottants - Adaptation pour fond clair (header) */
+.project-back-link {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 20;
+  color: var(--color-foreground);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.project-back-link:hover {
+  color: var(--color-primary);
+}
+
+.project-category {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+  z-index: 20;
+  padding: 0.5rem 1rem;
+}

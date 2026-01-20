@@ -2,24 +2,20 @@ import type { SanityImageSource } from "./sanityClient";
 
 export interface Project {
   _id: string;
+  _createdAt?: string;
   layout: string;
-  miniature: SanityImageSource;
   titre: string;
-  soustitre: string;
+  subtitle?: string;
   slug: string;
-  description_principale: string;
-  description_secondaire: string;
-  features_list: string[];
+  short_description?: string;
+  long_description?: string;
   categorie: {
     nom: string;
     slug: string;
   };
-  image_principale: SanityImageSource;
-  galerie: {
-    _key: string;
-    label: string;
-    image: SanityImageSource;
-  }[];
+  thumbnail: SanityImageSource;
+  mainImage: SanityImageSource;
+  gallery?: SanityImageSource[];
 }
 
 export interface Categorie {

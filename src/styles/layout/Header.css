@@ -1,5 +1,5 @@
 /* Header Layout */
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,14 +24,7 @@ nav ul {
   padding: 0;
 }
 
-nav a {
-  text-decoration: none;
+.nav-link {
   text-transform: uppercase;
-  color: var(--color-foreground);
   font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: var(--color-primary);
 }

@@ -1,0 +1,63 @@
+/* Input & Textarea Styles */
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.input-label {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-foreground);
+  background: transparent;
+  border: 1px solid var(--gray-800);
+  border-width: 0.5px 0.5px 2px 0.5px; /* Style original */
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--gray-400);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Variant: Default (Maintenu pour compatibilité, mais override par .input ci-dessus pour l'instant) */
+.input-default {
+  background-color: transparent;
+}
+
+.input-default:focus {
+  border-color: var(--color-secondary);
+}
+
+/* Variant: Filled */
+.input-filled {
+  background-color: var(--gray-50);
+  border: 1px solid transparent;
+}
+
+.input-filled:focus {
+  background-color: white;
+  border-color: var(--color-primary);
+}
+
+/* Textarea specific */
+.textarea {
+  min-height: 100px;
+  max-height: 250px;
+  resize: vertical;
+}

@@ -1,0 +1,24 @@
+.projects-order {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400); /* Inactive color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.order-button:hover {
+  color: var(--color-foreground);
+}
+
+.order-button.active {
+  color: var(--color-primary);
+}

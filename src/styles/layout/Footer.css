@@ -21,28 +21,12 @@
 
 .footer-links a {
   color: var(--gray-800);
-  text-decoration: none;
-  transition: color 0.3s ease;
   font-size: 0.95rem;
-}
-
-.footer-links a:hover {
-  color: var(--color-primary);
 }
 
 .social-links {
   display: flex;
   gap: 2rem;
-}
-
-.social-link {
-  color: var(--color-foreground);
-  transition: color 0.3s ease;
-  font-size: 2rem;
-}
-
-.social-link:hover {
-  color: var(--color-primary);
 }
 
 /* Bottom Bar */

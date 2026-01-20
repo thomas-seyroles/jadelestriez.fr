@@ -1,0 +1,143 @@
+/* Design System Page Styles */
+.design-system {
+  padding: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+}
+
+.design-header {
+  margin-bottom: 4rem;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 2rem;
+}
+
+.design-header h1 {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.design-section {
+  margin-bottom: 4rem;
+}
+
+.design-section h2 {
+  color: var(--gray-800);
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-secondary);
+  display: inline-block;
+}
+
+.color-subtitle {
+  font-size: var(--font-size-h3);
+  color: var(--gray-600);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Colors */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.color-card {
+  border: 1px solid var(--gray-200);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.color-preview {
+  height: 100px;
+  width: 100%;
+}
+
+.color-info {
+  padding: 1rem;
+  background: var(--color-background);
+}
+
+.color-info code {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  display: block;
+}
+
+/* Typography */
+.type-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.type-row {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-50);
+}
+
+.type-row h1, .type-row h2, .type-row h3 {
+    margin-bottom: 0.5rem;
+}
+
+.type-row code {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--gray-400);
+    font-size: 0.8rem;
+}
+
+/* UI Elements */
+.ui-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.component-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Icons */
+.icon-grid {
+    display: flex;
+    gap: 2rem;
+}
+
+.icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-800);
+}
+
+.icon-item span {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+}
+
+/* Motion */
+.motion-grid {
+    display: flex;
+    gap: 2rem;
+}
+
+.motion-box {
+    width: 100px;
+    height: 100px;
+    background-color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-foreground);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-align: center;
+}

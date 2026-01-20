@@ -1,22 +1,33 @@
-import { Routes, Route } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { AnimatePresence } from "motion/react";
+import { Toaster } from "sonner";
 import Header from "./components/Header";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
 import "./App.css";
+import { PageExitProvider } from "./context/PageExitContext";
 
 function App() {
+  const location = useLocation();
+  const isProjectDetail = location.pathname.startsWith("/projets/") && location.pathname !== "/projets";
+
   return (
-    <>
-      <Header />
-      <main className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projets" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+    <PageExitProvider>
+      <Toaster 
+        position="bottom-center" 
+        toastOptions={{
+          style: {
+            borderRadius: '0',
+            border: '1px solid var(--gray-200)',
+            fontFamily: 'var(--font-body)',
+          },
+        }}
+      />
+      <AnimatePresence>
+        {!isProjectDetail && <Header />}
+      </AnimatePresence>
+      <main className={`content ${isProjectDetail ? "no-header-footer" : ""}`}>
+        <Outlet />
       </main>
-    </>
+    </PageExitProvider>
   );
 }
 
