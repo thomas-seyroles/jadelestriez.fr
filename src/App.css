@@ -6,5 +6,4 @@ main.content {
 
 main.content.no-header-footer {
     height: 100vh;
-    overflow: hidden;
 }

@@ -28,9 +28,23 @@ export default function MainImage({ project }: MainImageProps) {
         transition={{ duration: 0.8 }}
       >
         <img
+          id="desktop-main-image"
           src={urlFor(project.mainImage)
             .width(600)
             .height(1200)
+            .format("webp")
+            .quality(90)
+            .url()}
+          alt={project.titre}
+          loading="lazy"
+          onClick={() => setIsLightboxOpen(true)}
+          style={{ cursor: "zoom-in" }}
+        />
+        <img
+          id="mobile-main-image"
+          src={urlFor(project.mainImage)
+            .width(800)
+            .height(500)
             .format("webp")
             .quality(90)
             .url()}

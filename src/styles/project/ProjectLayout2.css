@@ -1,9 +1,10 @@
 .project-layout-2 {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: var(--color-background);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .layout2-container {
@@ -57,6 +58,10 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+#mobile-main-image {
+  display: none;
 }
 
 /* Text Content - Middle Column */
@@ -113,28 +118,110 @@
 
 /* Responsive */
 @media (max-width: 1400px) {
+  .project-layout-2 {
+    height: auto;
+    overflow: visible;
+  }
   .layout2-content {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    flex-wrap: wrap; /* Permet le passage à la ligne */
+    height: auto; /* Supprime la hauteur fixe */
+    overflow: visible;
   }
   
+  /* Sur écran moyen : Image (50%) + Texte (50%) sur la première ligne */
+  .project-layout2-main-image {
+    flex-basis: 48%; /* Un peu moins de 50% pour la marge */
+  }
+
+  #desktop-main-image {
+    display: none;
+  }
+
+  #mobile-main-image {
+    display: block;
+  }
+
+  .project-layout2-text-content {
+    flex-basis: 48%;
+    padding-top: 0;
+  }
+
+  /* Galerie en pleine largeur en dessous */
   .project-layout2-gallery {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(4, 1fr);
+    flex-basis: 100%;
+    margin-top: 2rem;
+    grid-template-rows: auto; /* Hauteur auto pour la grille */
+    aspect-ratio: 2/1; /* Ratio pour garder une cohérence */
+  }
+
+  .gallery-item {
+    height: 400px;
   }
 }
 
 @media (max-width: 1024px) {
-  .layout2-content {
-    grid-template-columns: 1fr;
-    gap: 4rem;
+  .layout2-container {
+    padding: 6rem 2rem 2rem 2rem;
   }
-  
+
+  .project-layout-2 .project-title {
+    font-size: 3rem;
+  }
+
   .project-layout2-main-image {
-    aspect-ratio: 16/9;
+    flex-basis: 100%;
+  }
+
+  .project-layout2-text-content {
+    flex-basis: 100%;
+  }
+
+  .gallery-item {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout2-container {
+    padding: 6rem 1rem 1rem 1rem;
+  }
+
+  .layout2-inner {
+    padding: 1.5rem;
   }
   
+  .layout2-content {
+    flex-direction: column; /* Tout en colonne sur mobile */
+    gap: 2rem;
+  }
+
+  /* Chaque élément prend 100% */
+  .project-layout2-main-image,
+  .project-layout2-text-content,
   .project-layout2-gallery {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .project-layout2-main-image {
+    aspect-ratio: 4/3; /* Format plus classique sur mobile */
+  }
+
+  .project-layout-2 .project-title {
+    font-size: 2.5rem;
+  }
+
+  .project-layout2-gallery {
+    aspect-ratio: auto; /* Plus de ratio forcé */
+    gap: 0.5rem;
+  }
+  
+  /* Sur mobile, on garde 2 colonnes pour la grille, même si c'était 3 */
+  .project-layout2-gallery.grid-cols-3 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-item {
+    height: 200px;
   }
 }
