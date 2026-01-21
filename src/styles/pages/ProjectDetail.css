@@ -14,7 +14,7 @@
   position: absolute;
   top: 2rem;
   left: 2rem;
-  z-index: 20;
+  z-index: 999;
   color: var(--color-foreground);
   font-size: 1.5rem;
   display: flex;
@@ -37,7 +37,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-foreground);
-  z-index: 20;
+  z-index: 999;
 }
 
 @media (max-width: 768px) {

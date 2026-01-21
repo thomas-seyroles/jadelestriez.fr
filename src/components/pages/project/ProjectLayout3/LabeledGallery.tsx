@@ -16,11 +16,12 @@ export default function LabeledGallery({ items }: LabeledGalleryProps) {
 
   return (
     <div className="layout3-gallery">
-      {items.map((item) => (
-        <LabeledImage 
-          key={item._key} 
-          image={item.image} 
-          label={item.label} 
+      {items.map((item, index) => (
+        <LabeledImage
+          key={item._key}
+          image={item.image}
+          label={item.label}
+          id={index}
         />
       ))}
     </div>
