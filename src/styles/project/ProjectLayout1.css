@@ -121,8 +121,40 @@
 
 @media (max-width: 768px) {
   .project-editorial-header {
-    padding: 8rem .5rem .5rem .5rem;
-    gap: 2rem;
+    padding: 8rem 1rem 1rem 1rem;
+    gap: 1rem;
+  }
+
+  /* Sur mobile, on veut l'image ENTRE les deux descriptions */
+  /* On utilise order pour réorganiser les éléments flex */
+  .project-detail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 1. Header (Titre + Sous-titre + Description courte) en haut */
+  .project-editorial-header {
+    order: 1;
+    display: contents; /* Permet aux enfants d'être grid/flex items directs du parent */
+  }
+
+  /* Comme display: contents "efface" le conteneur, on style les enfants directement */
+  .project-header-left {
+    order: 1;
+    padding: 8rem 1rem 1rem 1rem; /* Padding qui était sur le header */
+  }
+
+  /* 2. Image au milieu */
+  .project-main-image-section {
+    order: 2;
+    height: 40vh;
+    padding: 0;
+  }
+
+  /* 3. Description longue en bas */
+  .project-header-texts {
+    order: 3;
+    padding: 2rem 1rem 4rem 1rem;
   }
 
   .project-title {
@@ -131,13 +163,5 @@
   
   .project-subtitle {
     font-size: 1.1rem;
-  }
-
-  .project-header-texts {
-    gap: 2rem;
-  }
-
-  main.content.no-header-footer {
-    overflow: visible;
   }
 }
