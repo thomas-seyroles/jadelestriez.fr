@@ -34,11 +34,17 @@ export default function HomeHero() {
         Communication & Design
       </motion.h1>
       <motion.p className="home-description" variants={itemVariants}>
-        Candy icing sugar plum marshmallow sweet candy canes marzipan muffin
-        pastry. Cake apple pie tiramisu gummi bears tootsie roll macaroon
-        pudding chocolate. Tootsie roll gingerbread jelly beans marshmallow
-        gummies ice cream cotton candy biscuit. Jujubes tart sweet roll lemon
-        drops topping cake muffin chees
+        De l’immersion dans votre brief à la livraison finale, je conçois votre
+        image comme un levier stratégique. Mon approche ? Analyser l’ADN de
+        votre projet pour transformer une intention en une émotion visuelle
+        percutante.
+        <br />
+        Je cultive une esthétique où rien n'est laissé au hasard. Composition,
+        graphisme, direction artistique... j'expérimente sans cesse pour
+        maîtriser cette grammaire visuelle qui fait qu'un visuel ne se contente
+        pas d'être vu, mais qu'il est ressenti.
+        <br />
+        Prêt à co-créer votre prochain territoire visuel ?
       </motion.p>
       <motion.div className="home-link-container" variants={itemVariants}>
         <Button
