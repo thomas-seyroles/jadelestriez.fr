@@ -1,4 +1,3 @@
-import Navigation from "../Navigation";
 import MainImage from "./MainImage";
 import TextContent from "./TextContent";
 import Gallery from "./Gallery";
@@ -12,8 +11,6 @@ interface ProjectLayout2Props {
 export default function ProjectLayout2({ project }: ProjectLayout2Props) {
   return (
     <div className="project-detail project-layout-2">
-      <Navigation project={project} />
-
       <div className="layout2-container">
         <div className="layout2-outer">
           <div className="layout2-inner">

@@ -1,4 +1,3 @@
-import Navigation from "../Navigation";
 import type { ProjectLayout3 } from "../../../../types";
 import LabeledGallery from "./LabeledGallery";
 import "../../../../styles/project/ProjectLayout3.css";
@@ -10,7 +9,6 @@ interface ProjectLayout3Props {
 export default function ProjectLayout3({ project }: ProjectLayout3Props) {
   return (
     <div className="project-detail project-layout-3">
-      <Navigation project={project} />
       <div className="layout3-outer">
         <div className="layout3-inner">
           <div className="layout3-container">

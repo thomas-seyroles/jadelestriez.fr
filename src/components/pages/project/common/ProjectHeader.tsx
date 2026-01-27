@@ -1,14 +1,14 @@
 import { motion, type Variants } from "motion/react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa6";
-import type { Project } from "../../../types";
-import styles from "../../../styles/project/ProjectLayout1.module.css";
+import type { Project } from "../../../../types";
+import styles from "../../../../styles/project/ProjectHeader.module.css";
 
-interface NavigationProps {
+interface ProjectHeaderProps {
   project: Project;
 }
 
-export default function Navigation({ project }: NavigationProps) {
+export default function ProjectHeader({ project }: ProjectHeaderProps) {
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
