@@ -1,5 +1,6 @@
 import LabeledImage from "./LabeledImage";
 import { type SanityImageSource } from "../../../../sanityClient";
+import styles from "../../../../styles/project/ProjectLayout3.module.css";
 
 interface LabeledGalleryItem {
   _key: string;
@@ -15,7 +16,7 @@ export default function LabeledGallery({ items }: LabeledGalleryProps) {
   if (!items || items.length === 0) return null;
 
   return (
-    <div className="layout3-gallery">
+    <div className={styles['layout3-gallery']}>
       {items.map((item, index) => (
         <LabeledImage
           key={item._key}

@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { urlFor, type SanityImageSource } from "../../../../sanityClient";
 import Lightbox from "../../../ui/Lightbox";
+import styles from "../../../../styles/project/ProjectLayout3.module.css";
 
 interface LabeledImageProps {
   image: SanityImageSource;
@@ -28,14 +29,14 @@ export default function LabeledImage({ image, label, id }: LabeledImageProps) {
   return (
     <>
       <motion.div
-        className="labeled-image-card"
+        className={styles['labeled-image-card']}
         initial={{ opacity: 0, y: 20, rotateZ: cardRotations[id].rotateZ }}
         whileInView={{ opacity: 1, y: 0, rotateZ: cardRotations[id].rotateZ }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
         <div
-          className="labeled-image-wrapper"
+          className={styles['labeled-image-wrapper']}
           onClick={() => setIsLightboxOpen(true)}
           style={{ cursor: "zoom-in" }}
         >
@@ -52,7 +53,7 @@ export default function LabeledImage({ image, label, id }: LabeledImageProps) {
             id={id.toString()}
           />
         </div>
-        <h3 className="labeled-image-title">{label}</h3>
+        <h3 className={styles['labeled-image-title']}>{label}</h3>
       </motion.div>
 
       <Lightbox

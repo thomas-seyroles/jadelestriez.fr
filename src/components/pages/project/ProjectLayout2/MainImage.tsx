@@ -3,6 +3,7 @@ import { useState } from "react";
 import { urlFor } from "../../../../sanityClient";
 import type { ProjectLayout2 } from "../../../../types";
 import Lightbox from "../../../ui/Lightbox";
+import styles from "../../../../styles/project/ProjectLayout2.module.css";
 
 interface MainImageProps {
   project: ProjectLayout2;
@@ -20,13 +21,13 @@ export default function MainImage({ project }: MainImageProps) {
   return (
     <>
       <motion.div
-        className="project-layout2-main-image"
+        className={styles['project-layout2-main-image']}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
         <img
-          id="desktop-main-image"
+          id={styles['desktop-main-image']}
           src={urlFor(project.mainImage)
             .width(600)
             .height(1200)
@@ -39,7 +40,7 @@ export default function MainImage({ project }: MainImageProps) {
           style={{ cursor: "zoom-in" }}
         />
         <img
-          id="mobile-main-image"
+          id={styles['mobile-main-image']}
           src={urlFor(project.mainImage)
             .width(800)
             .height(500)

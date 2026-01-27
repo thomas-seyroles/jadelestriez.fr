@@ -3,6 +3,7 @@ import { useState } from "react";
 import { urlFor } from "../../../../sanityClient";
 import type { ProjectLayout2 } from "../../../../types";
 import Lightbox from "../../../ui/Lightbox";
+import styles from "../../../../styles/project/ProjectLayout2.module.css";
 
 interface GalleryProps {
   project: ProjectLayout2;
@@ -15,7 +16,7 @@ export default function Gallery({ project }: GalleryProps) {
   // 4 images -> 2 cols x 2 rows
   // 5-6 images -> 3 cols x 2 rows
   const gridClass =
-    project.gallery.length > 4 ? "grid-cols-3" : "grid-cols-2";
+    project.gallery.length > 4 ? styles['grid-cols-3'] : styles['grid-cols-2'];
 
   const handleImageClick = (imageSource: any) => {
     const url = urlFor(imageSource)
@@ -29,13 +30,13 @@ export default function Gallery({ project }: GalleryProps) {
   return (
     <>
       <motion.div
-        className={`project-layout2-gallery ${gridClass}`}
+        className={`${styles['project-layout2-gallery']} ${gridClass}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
         {project.gallery.map((image, index) => (
-          <div key={`gallery-${index}`} className="gallery-item">
+          <div key={`gallery-${index}`} className={styles['gallery-item']}>
             <img
               src={urlFor(image).width(400).height(400).fit("crop").url()}
               alt={`Galerie ${index + 1}`}
