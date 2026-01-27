@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { FiSearch, FiX } from "react-icons/fi";
-import "../../../styles/features/FilterSearch.css";
+import styles from "../../../styles/pages/Projects.module.css";
 
 interface FilterSearchProps {
   onSearchChange: (searchTerm: string) => void;
@@ -22,14 +22,14 @@ export default function FilterSearch({ onSearchChange }: FilterSearchProps) {
   };
 
   return (
-    <div className="filter-search">
-      <div className="search-input-container">
-        <div className="search-icon">
+    <div className={styles['filter-search']}>
+      <div className={styles['search-input-container']}>
+        <div className={styles['search-icon']}>
           <FiSearch size={20} />
         </div>
         <input
           type="text"
-          className="search-input"
+          className={styles['search-input']}
           placeholder="Rechercher un projet..."
           value={searchValue}
           onChange={handleChange}
@@ -37,7 +37,7 @@ export default function FilterSearch({ onSearchChange }: FilterSearchProps) {
         <AnimatePresence>
           {searchValue && (
             <motion.button
-              className="search-close-button"
+              className={styles['search-close-button']}
               onClick={handleClear}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}

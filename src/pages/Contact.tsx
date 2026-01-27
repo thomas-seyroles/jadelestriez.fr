@@ -4,7 +4,7 @@ import ContactHeader from "../components/pages/contact/ContactHeader";
 import ContactForm from "../components/pages/contact/ContactForm";
 import ContactSocials from "../components/pages/contact/ContactSocials";
 import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
-import "../styles/pages/Contact.css";
+import styles from "../styles/pages/Contact.module.css";
 
 export default function Contact() {
   const { isExiting, handleExitComplete } = usePageExitAnimation();
@@ -27,7 +27,7 @@ export default function Contact() {
 
   return (
     <motion.section
-      className="contact"
+      className={styles['contact']}
       initial="hidden"
       animate={isExiting ? "exit" : "visible"}
       variants={pageVariants}
@@ -37,8 +37,8 @@ export default function Contact() {
         title="Contact"
         description="Contactez Jade pour toute collaboration ou information. Envoyez un message ou retrouvez-moi sur les réseaux sociaux."
       />
-      <div className="outer-container">
-        <div className="inner-container">
+      <div className={styles['outer-container']}>
+        <div className={styles['inner-container']}>
           <ContactHeader />
           <ContactForm />
           <ContactSocials />

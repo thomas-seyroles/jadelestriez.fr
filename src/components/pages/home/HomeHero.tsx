@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
+import styles from "../../../styles/pages/Home.module.css";
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -27,13 +28,13 @@ export default function HomeHero() {
   };
 
   return (
-    <motion.section className="home-section" variants={containerVariants}>
-      <motion.h1 className="home-title" variants={itemVariants}>
-        <span className="home-title-name">Jade Lestriez</span>
+    <motion.section className={styles['home-section']} variants={containerVariants}>
+      <motion.h1 className={styles['home-title']} variants={itemVariants}>
+        <span className={styles['home-title-name']}>Jade Lestriez</span>
         <br />
         Communication & Design
       </motion.h1>
-      <motion.p className="home-description" variants={itemVariants}>
+      <motion.p className={styles['home-description']} variants={itemVariants}>
         De l’immersion dans votre brief à la livraison finale, je conçois votre
         image comme un levier stratégique. Mon approche ? Analyser l’ADN de
         votre projet pour transformer une intention en une émotion visuelle
@@ -46,7 +47,7 @@ export default function HomeHero() {
         <br />
         Prêt à co-créer votre prochain territoire visuel ?
       </motion.p>
-      <motion.div className="home-link-container" variants={itemVariants}>
+      <motion.div className={styles['home-link-container']} variants={itemVariants}>
         <Button
           variant="primary"
           onClick={() => navigate("/projets")}
