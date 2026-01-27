@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import texture_2 from "../../../assets/images/texture_2.jpg";
+import styles from "../../../styles/pages/Home.module.css";
 
 export default function HomeTextures() {
   const textureVariants = {
@@ -12,19 +13,19 @@ export default function HomeTextures() {
   };
 
   return (
-    <div className="textures">
+    <div className={styles['textures']}>
       <motion.img
-        id="texture1"
+        id={styles['texture1']}
         src={texture_2}
         alt=""
-        className="texture-image"
+        className={styles['texture-image']}
         variants={textureVariants}
       />
       <motion.img
-        id="texture2"
+        id={styles['texture2']}
         src={texture_2}
         alt=""
-        className="texture-image"
+        className={styles['texture-image']}
         variants={textureVariants}
       />
     </div>

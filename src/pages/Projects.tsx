@@ -4,7 +4,7 @@ import { client } from "../sanityClient";
 import { motion } from "motion/react";
 import SEO from "../components/SEO";
 import type { Project } from "../types";
-import "../styles/pages/Projects.css";
+import styles from "../styles/pages/Projects.module.css";
 import projets from "../assets/images/PROJETS.svg";
 import Footer from "../components/Footer";
 import ProjectFilters from "../components/pages/projects/ProjectFilters";
@@ -145,19 +145,19 @@ export default function Projects() {
 
   return (
     <>
-      <section className="projects-section">
+      <section className={styles['projects-section']}>
         <SEO
           title="Mes Projets"
           description="Découvrez les projets de Jade, incluant graphisme, communication et design web. Une galerie variée démontrant mes compétences."
         />
 
         <motion.header
-          className="projects-header"
+          className={styles['projects-header']}
           initial="hidden"
           animate={isExiting ? "exit" : "visible"}
           variants={headerVariants}
         >
-          <h1 className="projects-title">
+          <h1 className={styles['projects-title']}>
             <img src={projets} alt="Projets" />
           </h1>
 
@@ -171,7 +171,7 @@ export default function Projects() {
         </motion.header>
 
         <motion.div
-          className="projects-grid"
+          className={styles['projects-grid']}
           variants={containerVariants}
           initial="hidden"
           animate={isExiting ? "exit" : "visible"}

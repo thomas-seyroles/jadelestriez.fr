@@ -1,13 +1,14 @@
 import { motion, type Variants } from "motion/react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa6";
-import type { Project } from "../../../types";
+import type { Project } from "../../../../types";
+import styles from "../../../../styles/project/ProjectHeader.module.css";
 
-interface NavigationProps {
+interface ProjectHeaderProps {
   project: Project;
 }
 
-export default function Navigation({ project }: NavigationProps) {
+export default function ProjectHeader({ project }: ProjectHeaderProps) {
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -20,13 +21,13 @@ export default function Navigation({ project }: NavigationProps) {
   return (
     <>
       <motion.div variants={itemVariants}>
-        <Link to={`/projets`} className="project-back-link">
+        <Link to={`/projets`} className={styles['project-back-link']}>
           <FaChevronLeft />
         </Link>
       </motion.div>
 
       {project.categorie && (
-        <motion.div className="project-category" variants={itemVariants}>
+        <motion.div className={styles['project-category']} variants={itemVariants}>
           <Link to={`/projets?categorie=${project.categorie.slug}`}>
             {project.categorie.nom.toUpperCase()}
           </Link>

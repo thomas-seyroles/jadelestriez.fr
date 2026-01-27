@@ -6,6 +6,11 @@
   padding: 1rem 4rem;
   background-color: var(--color-background);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 /* Logo */
@@ -13,10 +18,16 @@
   height: 70px;
   width: auto;
   display: block;
+  /* Ensure logo stays on top of mobile menu if needed, 
+     though usually menu covers everything. 
+     Here we want menu below header or covering screen? 
+     Let's make menu cover screen but start below header or be full screen.
+     Implementation in TSX puts nav inside header.
+  */
 }
 
-/* Navigation */
-nav ul {
+/* Desktop Navigation */
+.desktop-nav ul {
   display: flex;
   list-style: none;
   gap: 2rem;
@@ -27,4 +38,82 @@ nav ul {
 .nav-link {
   text-transform: uppercase;
   font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* Mobile Menu Toggle - Hidden by default */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-foreground);
+  padding: 0.5rem;
+  border-radius: 0; /* Sharp aesthetic */
+}
+
+/* Mobile Navigation Overlay - Hidden by default */
+.mobile-nav {
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 82px; /* Adjust based on header height approx */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 82px);
+    background-color: var(--color-background);
+    flex-direction: column;
+    padding: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 1px solid var(--gray-200);
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  .mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .mobile-nav-link {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    text-decoration: none;
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-100);
+    width: 100%;
+  }
 }

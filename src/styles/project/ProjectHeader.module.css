@@ -40,14 +40,19 @@
   z-index: 999;
 }
 
+.project-category a {
+  color: inherit;
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
   .project-back-link {
-    top: 1.5rem;
+    top: 2rem;
     left: 1rem;
   }
 
   .project-category {
-    top: 1.5rem;
+    top: 2rem;
     right: 1rem;
   }
 }

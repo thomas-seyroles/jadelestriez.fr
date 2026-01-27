@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { BsSortDown, BsSortUp } from "react-icons/bs";
-import "../../../styles/features/ProjectsOrder.css";
+import styles from "../../../styles/pages/Projects.module.css";
 
 interface ProjectsOrderProps {
   order: "desc" | "asc";
@@ -9,9 +9,9 @@ interface ProjectsOrderProps {
 
 export default function ProjectsOrder({ order, onOrderChange }: ProjectsOrderProps) {
   return (
-    <div className="projects-order">
+    <div className={styles['projects-order']}>
       <motion.button
-        className={`order-button ${order === "desc" ? "active" : ""}`}
+        className={`${styles['order-button']} ${order === "desc" ? styles['active'] : ""}`}
         onClick={() => onOrderChange("desc")}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -21,7 +21,7 @@ export default function ProjectsOrder({ order, onOrderChange }: ProjectsOrderPro
       </motion.button>
       
       <motion.button
-        className={`order-button ${order === "asc" ? "active" : ""}`}
+        className={`${styles['order-button']} ${order === "asc" ? styles['active'] : ""}`}
         onClick={() => onOrderChange("asc")}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}

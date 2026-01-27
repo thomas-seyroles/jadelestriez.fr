@@ -3,6 +3,7 @@ import { useState } from "react";
 import { urlFor } from "../../../../sanityClient";
 import type { ProjectLayout1 } from "../../../../types";
 import Lightbox from "../../../ui/Lightbox";
+import styles from "../../../../styles/project/ProjectLayout1.module.css";
 
 interface MainImageProps {
   project: ProjectLayout1;
@@ -27,7 +28,7 @@ export default function MainImage({ project }: MainImageProps) {
 
   return (
     <>
-      <div className="project-main-image-section">
+      <div className={styles['project-main-image-section']}>
         <motion.img
           src={urlFor(project.mainImage)
             .width(1920)
@@ -37,7 +38,7 @@ export default function MainImage({ project }: MainImageProps) {
             .fit("max")
             .url()}
           alt={project.titre || ""}
-          className="project-main-image"
+          className={styles['project-main-image']}
           variants={imageVariants}
           onClick={() => setIsLightboxOpen(true)}
           style={{ cursor: "zoom-in" }}

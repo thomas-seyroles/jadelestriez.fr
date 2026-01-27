@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import "../../styles/pages/Design.css"; // Reuse existing styles or create new ones if needed
+import styles from "../../styles/pages/Design.module.css";
 
 interface ColorCardProps {
   color: string;
@@ -46,20 +46,20 @@ export default function ColorCard({ color, label }: ColorCardProps) {
 
   return (
     <div 
-      className="color-card" 
+      className={styles['color-card']}
       onClick={handleCopy} 
       title="Click to copy Hex code"
       style={{ cursor: "pointer", position: "relative" }}
     >
       <div
-        className="color-preview"
+        className={styles['color-preview']}
         style={{ 
           backgroundColor: color,
           border: label === '--color-background' ? '1px solid var(--gray-200)' : 'none'
         }}
       >
       </div>
-      <div className="color-info">
+      <div className={styles['color-info']}>
         <code>{label}</code>
       </div>
     </div>

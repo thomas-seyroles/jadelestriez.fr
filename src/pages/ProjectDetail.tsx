@@ -5,10 +5,11 @@ import { client } from "../sanityClient";
 import SEO from "../components/SEO";
 import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
 import type { Project } from "../types";
+import ProjectHeader from "../components/pages/project/common/ProjectHeader";
 import ProjectLayout1 from "../components/pages/project/ProjectLayout1/index";
 import ProjectLayout2 from "../components/pages/project/ProjectLayout2/index";
 import ProjectLayout3 from "../components/pages/project/ProjectLayout3/index";
-import "../styles/pages/ProjectDetail.css";
+import styles from "../styles/project/ProjectHeader.module.css";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -59,6 +60,7 @@ export default function ProjectDetail() {
       transition: {
         duration: 0.5,
         staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
     exit: {
@@ -93,11 +95,13 @@ export default function ProjectDetail() {
       animate={isExiting ? "exit" : "visible"}
       variants={pageVariants}
       onAnimationComplete={handleExitComplete}
+      className={styles['project-detail-container']}
     >
       <SEO
         title={projectData.titre || "Projet"}
         description={description}
       />
+      <ProjectHeader project={projectData} />
       {renderLayout()}
     </motion.div>
   );

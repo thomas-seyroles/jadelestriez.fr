@@ -4,7 +4,7 @@ import FilterLink from "../../ui/FilterLink";
 import FilterSearch from "./FilterSearch";
 import ProjectsOrder from "./ProjectsOrder";
 import type { Categorie } from "../../../types";
-import "../../../styles/features/ProjectFilters.css";
+import styles from "../../../styles/pages/Projects.module.css";
 
 interface ProjectFiltersProps {
   selectedCategory: string;
@@ -37,9 +37,10 @@ export default function ProjectFilters({
   }, []);
 
   return (
-    <div className="filters">
-      <div className="category-filters">
+    <div className={styles['filters']}>
+      <div className={styles['category-filters']}>
         <FilterLink
+          className={styles['filter-button']}
           isActive={selectedCategory === "Tous"}
           onClick={() => onFilterChange("Tous")}
         >
@@ -48,6 +49,7 @@ export default function ProjectFilters({
         {filters.map((filter) => (
           <FilterLink
             key={filter._id}
+            className={styles['filter-button']}
             isActive={selectedCategory === filter.nom}
             onClick={() => onFilterChange(filter.nom)}
           >
@@ -56,7 +58,7 @@ export default function ProjectFilters({
         ))}
       </div>
       
-      <div className="filter-controls-container">
+      <div className={styles['filter-controls-container']}>
         <FilterSearch onSearchChange={onSearchChange} />
         <ProjectsOrder order={order} onOrderChange={onOrderChange} />
       </div>

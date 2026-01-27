@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import "../styles/pages/Home.css";
+import styles from "../styles/pages/Home.module.css";
 import SEO from "../components/SEO";
 import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
 import HomeTextures from "../components/pages/home/HomeTextures";
@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <motion.div
-      className="home-container"
+      className={styles['home-container']}
       initial="hidden"
       animate={isExiting ? "exit" : "visible"}
       variants={pageVariants}

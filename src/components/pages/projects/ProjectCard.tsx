@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { urlFor } from "../../../sanityClient";
 import type { Project } from "../../../types";
-import "../../../styles/features/ProjectCard.css";
+import styles from "../../../styles/pages/Projects.module.css";
 
 interface ProjectCardProps {
   project: Project;
@@ -13,7 +13,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <motion.div
-      className="project-card"
+      className={styles['project-card']}
       initial="rest"
       whileHover="hover"
       animate="rest"
@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             .quality(60)
             .url()}
           alt={project.titre || "Projet sans titre"}
-          className="project-image"
+          className={styles['project-image']}
           loading="lazy"
           variants={{
             rest: { opacity: 1, scale: 1 },
@@ -37,14 +37,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         />
 
         <motion.div
-          className="project-card-overlay"
+          className={styles['project-card-overlay']}
           variants={{
             rest: { opacity: 0, y: 10 },
             hover: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <h3 className="project-card-title">{project.titre}</h3>
+          <h3 className={styles['project-card-title']}>{project.titre}</h3>
         </motion.div>
       </Link>
     </motion.div>

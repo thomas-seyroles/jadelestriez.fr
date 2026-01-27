@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
+import styles from "../../../styles/pages/Home.module.css";
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -27,20 +28,26 @@ export default function HomeHero() {
   };
 
   return (
-    <motion.section className="home-section" variants={containerVariants}>
-      <motion.h1 className="home-title" variants={itemVariants}>
-        <span className="home-title-name">Jade Lestriez</span>
+    <motion.section className={styles['home-section']} variants={containerVariants}>
+      <motion.h1 className={styles['home-title']} variants={itemVariants}>
+        <span className={styles['home-title-name']}>Jade Lestriez</span>
         <br />
         Communication & Design
       </motion.h1>
-      <motion.p className="home-description" variants={itemVariants}>
-        Candy icing sugar plum marshmallow sweet candy canes marzipan muffin
-        pastry. Cake apple pie tiramisu gummi bears tootsie roll macaroon
-        pudding chocolate. Tootsie roll gingerbread jelly beans marshmallow
-        gummies ice cream cotton candy biscuit. Jujubes tart sweet roll lemon
-        drops topping cake muffin chees
+      <motion.p className={styles['home-description']} variants={itemVariants}>
+        De l’immersion dans votre brief à la livraison finale, je conçois votre
+        image comme un levier stratégique. Mon approche ? Analyser l’ADN de
+        votre projet pour transformer une intention en une émotion visuelle
+        percutante.
+        <br />
+        Je cultive une esthétique où rien n'est laissé au hasard. Composition,
+        graphisme, direction artistique... j'expérimente sans cesse pour
+        maîtriser cette grammaire visuelle qui fait qu'un visuel ne se contente
+        pas d'être vu, mais qu'il est ressenti.
+        <br />
+        Prêt à co-créer votre prochain territoire visuel ?
       </motion.p>
-      <motion.div className="home-link-container" variants={itemVariants}>
+      <motion.div className={styles['home-link-container']} variants={itemVariants}>
         <Button
           variant="primary"
           onClick={() => navigate("/projets")}

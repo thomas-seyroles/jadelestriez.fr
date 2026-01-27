@@ -51,6 +51,8 @@
   bottom: 10%;
   position: relative;
   z-index: 80;
+  padding: .5rem;
+  background-color: var(--color-background);
 }
 
 .project-layout-3 .project-title {
@@ -78,6 +80,8 @@
   white-space: pre-line;
   position: relative;
   z-index: 60;
+  padding: .5rem;
+  background-color: var(--color-background);
 }
 
 /* Gallery Grid */
