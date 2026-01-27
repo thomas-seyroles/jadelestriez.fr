@@ -4,12 +4,12 @@ import SocialIcon from "./ui/SocialIcon";
 import "../styles/layout/Footer.css";
 import { usePageExitContext } from "../context/PageExitContext";
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   const { shouldLayoutExit } = usePageExitContext();
 
   return (
     <motion.footer
-      className="footer"
+      className={`footer ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: shouldLayoutExit ? 0 : 1 }}
       exit={{ opacity: 0 }}

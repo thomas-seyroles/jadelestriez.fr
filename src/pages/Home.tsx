@@ -2,8 +2,9 @@ import { motion } from "motion/react";
 import styles from "../styles/pages/Home.module.css";
 import SEO from "../components/SEO";
 import { usePageExitAnimation } from "../hooks/usePageExitAnimation";
-import HomeTextures from "../components/pages/home/HomeTextures";
 import HomeHero from "../components/pages/home/HomeHero";
+import HomeImage from "../components/pages/home/HomeImage";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const { isExiting, handleExitComplete } = usePageExitAnimation();
@@ -24,20 +25,23 @@ export default function Home() {
   };
 
   return (
-    <motion.div
-      className={styles['home-container']}
-      initial="hidden"
-      animate={isExiting ? "exit" : "visible"}
-      variants={pageVariants}
-      onAnimationComplete={handleExitComplete}
-    >
-      <SEO
-        title="Jade Lestriez"
-        description="Portfolio de Jade, étudiante en communication spécialisée dans le design et la création digitale. Découvrez mes projets et mon univers."
-      />
+    <>
+      <motion.div
+        className={styles["home-container"]}
+        initial="hidden"
+        animate={isExiting ? "exit" : "visible"}
+        variants={pageVariants}
+        onAnimationComplete={handleExitComplete}
+      >
+        <SEO
+          title="Jade Lestriez"
+          description="Portfolio de Jade, étudiante en communication spécialisée dans le design et la création digitale. Découvrez mes projets et mon univers."
+        />
 
-      <HomeTextures />
-      <HomeHero />
-    </motion.div>
+        <HomeHero />
+        <HomeImage />
+      </motion.div>
+      <Footer className={styles["footer-home"]} />
+    </>
   );
 }

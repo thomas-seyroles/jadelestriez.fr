@@ -1,14 +1,19 @@
 .home-container {
   display: flex;
+  gap: 2rem;
+  justify-content: space-between;
   padding: 2rem 4rem;
   flex-grow: 1;
   height: 80dvh;
   overflow: hidden;
   position: relative;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 .home-section {
-  width: 100%;
+  width: 50%;
   max-width: 780px;
   display: flex;
   flex-direction: column;
@@ -43,28 +48,117 @@
   align-items: center;
 }
 
-/* Textures */
-.textures {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
+.home-image {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  align-items: center;
+  margin-right: 8rem;
+  justify-content: center;
+  width: 550px;
 }
 
-.textures img,
-.textures .texture-image {
-  width: 150px;
-  height: 250px;
+.home-image img {
+  width: 100%;
+  aspect-ratio: 3/4;
   object-fit: cover;
-  filter: blur(2px);
-  opacity: .75;
-  will-change: transform, filter;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  cursor: zoom-in;
 }
 
+.footer-home {
+  display: none!important;
+}
+
+/* Responsive */
+@media screen and (min-width: 1920px) {
+  .home-image {
+    width: 700px;
+  }
+
+  .home-title {
+    margin-top: 20rem;
+  }
+}
+
+@media screen and (max-width: 1550px) {
+  .home-image {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .home-image {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .home-image {
+    width: 450px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-section {
+    width: 50%;
+  }
+
+  .home-title {
+    font-size: 3rem;
+  }
+
+  .home-image {
+    width: 50%;
+  }
+  
+  .home-image img {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column-reverse;
+    height: auto;
+    min-height: 80dvh;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .home-section {
+    width: 100%;
+  }
+
+  .home-title {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .home-title-name {
+    font-size: 1.5rem;
+  }
+
+  .home-image {
+    width: 70%;
+    margin: 0 auto;
+  }
+  
+  .home-description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-link-container {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .home-link-container > * {
+    width: 100%;
+  }
+
+  .home-image {
+    width: 100%;
+  }
+}

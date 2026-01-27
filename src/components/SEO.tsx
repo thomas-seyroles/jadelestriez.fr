@@ -13,7 +13,7 @@ export default function SEO({
   image,
   url = window.location.href,
 }: SEOProps) {
-  const metaImage = image || "/default-og-image.jpg";
+  const metaImage = image || "/favicon-96x96.png";
   const siteTitle = "Portfolio étudiante en communication";
 
   return (

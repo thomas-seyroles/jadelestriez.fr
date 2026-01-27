@@ -158,6 +158,7 @@ export default function Projects() {
           variants={headerVariants}
         >
           <h1 className={styles['projects-title']}>
+            <span className="sr-only">Mes Projets de Communication et Design</span>
             <img src={projets} alt="Projets" />
           </h1>
 

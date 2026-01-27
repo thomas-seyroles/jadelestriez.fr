@@ -41,3 +41,43 @@
   font-size: 0.85rem;
   color: var(--gray-400);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+  }
+
+  .footer-links li {
+    width: 100%;
+  }
+
+  .footer-links a {
+    display: block;
+    padding: 0.5rem;
+    font-size: 1.1rem; /* Larger text for touch */
+  }
+
+  .social-links {
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 1.5rem;
+  }
+}

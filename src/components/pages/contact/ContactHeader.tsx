@@ -3,7 +3,8 @@ import contact from "../../../assets/images/CONTACT.svg";
 
 export default function ContactHeader() {
   return (
-    <div className="contact-header">
+    <header className="contact-header">
+      <h1 className="sr-only">Contactez Jade Lestriez</h1>
       <motion.img
         src={contact}
         alt="Contact"
@@ -12,6 +13,6 @@ export default function ContactHeader() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       />
-    </div>
+    </header>
   );
 }
