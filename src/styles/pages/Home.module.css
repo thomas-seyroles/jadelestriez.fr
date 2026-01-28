@@ -4,12 +4,12 @@
   justify-content: space-between;
   padding: 2rem 4rem;
   flex-grow: 1;
-  height: 80dvh;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   width: 100%;
   max-width: 2000px;
   margin: 0 auto;
+  margin-bottom: 4rem;
 }
 
 .home-section {
