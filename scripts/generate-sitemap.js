@@ -70,7 +70,11 @@ async function generateSitemap() {
     }
   }
 
-  const staticRoutes = ["", "/projets", "/contact"];
+  const staticRoutes = [
+    { path: "", priority: "1.0" },
+    { path: "/projets", priority: "0.9" },
+    { path: "/contact", priority: "0.8" },
+  ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -78,9 +82,9 @@ async function generateSitemap() {
     .map(
       (route) => `
   <url>
-    <loc>${DOMAIN}${route}</loc>
+    <loc>${DOMAIN}${route.path}</loc>
     <changefreq>monthly</changefreq>
-    <priority>${route === "" ? "1.0" : "0.8"}</priority>
+    <priority>${route.priority}</priority>
   </url>`,
     )
     .join("")}
@@ -91,7 +95,7 @@ async function generateSitemap() {
     <loc>${DOMAIN}/projets/${project.slug}</loc>
     <lastmod>${project._updatedAt ? project._updatedAt.split("T")[0] : new Date().toISOString().split("T")[0]}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>`,
     )
     .join("")}
