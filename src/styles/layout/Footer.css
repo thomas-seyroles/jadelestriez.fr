@@ -45,7 +45,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .footer {
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
     gap: 2rem;
@@ -55,7 +55,7 @@
 
   .footer-links {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
     align-items: center;
   }
@@ -67,12 +67,11 @@
   .footer-links a {
     display: block;
     padding: 0.5rem;
-    font-size: 1.1rem; /* Larger text for touch */
+    font-size: .9rem; /* Larger text for touch */
   }
 
   .social-links {
     gap: 2rem;
-    margin-top: 0.5rem;
   }
 }
 
