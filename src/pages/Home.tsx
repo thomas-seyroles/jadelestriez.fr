@@ -41,7 +41,7 @@ export default function Home() {
         <HomeHero />
         <HomeImage />
       </motion.div>
-      <Footer className={styles["footer-home"]} />
+      <Footer />
     </>
   );
 }
